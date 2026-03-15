@@ -12,7 +12,9 @@
     "genarate": "protoc -I ./proto ./proto/*.proto --ts_proto_out=./gen --ts_proto_opt=nestJs=true,package=omit"
   },
   "files": [
-    "dist"
+    "dist",
+    "proto",
+    "gen"
   ],
   "devDependencies": {
     "@types/node": "^25.5.0",
