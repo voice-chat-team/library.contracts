@@ -19,18 +19,26 @@ export interface GetUserByEmailRequest {
   email: string;
 }
 
-export interface GetUserByIdResponse {
-  user: User | undefined;
-}
-
-export interface GetUserByEmailResponse {
-  user: User | undefined;
+export interface GetUserByUsernameRequest {
+  username: string;
 }
 
 export interface CreateUserRequest {
   username: string;
   email: string;
   passwordHash: string;
+}
+
+export interface GetUserByUsernameResponse {
+  user: User | undefined;
+}
+
+export interface GetUserByIdResponse {
+  user: User | undefined;
+}
+
+export interface GetUserByEmailResponse {
+  user: User | undefined;
 }
 
 export interface CreateUserResponse {
@@ -54,6 +62,8 @@ export interface UserServiceClient {
 
   getUserByEmail(request: GetUserByEmailRequest): Observable<GetUserByEmailResponse>;
 
+  getUserByUsername(request: GetUserByUsernameRequest): Observable<GetUserByUsernameResponse>;
+
   createUser(request: CreateUserRequest): Observable<CreateUserResponse>;
 }
 
@@ -66,6 +76,10 @@ export interface UserServiceController {
     request: GetUserByEmailRequest,
   ): Promise<GetUserByEmailResponse> | Observable<GetUserByEmailResponse> | GetUserByEmailResponse;
 
+  getUserByUsername(
+    request: GetUserByUsernameRequest,
+  ): Promise<GetUserByUsernameResponse> | Observable<GetUserByUsernameResponse> | GetUserByUsernameResponse;
+
   createUser(
     request: CreateUserRequest,
   ): Promise<CreateUserResponse> | Observable<CreateUserResponse> | CreateUserResponse;
@@ -73,7 +87,7 @@ export interface UserServiceController {
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUserById", "getUserByEmail", "createUser"];
+    const grpcMethods: string[] = ["getUserById", "getUserByEmail", "getUserByUsername", "createUser"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);
