@@ -5,6 +5,23 @@ package auth.v1;
 service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Registration(RegistrationRequest) returns (RegistrationResponse);
+  rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+}
+
+enum TokenType {
+  ACCESS = 0;
+  REFRESH = 1;
+}
+
+message VerifyTokenRequest {
+  string token = 1;
+  TokenType token_type = 2;
+}
+
+message VerifyTokenResponse {
+  bool is_valid = 1;
+  string user_id = 2;
+  string username = 3;
 }
 
 message LoginRequest {
