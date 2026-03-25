@@ -8,14 +8,8 @@ service AuthService {
   rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
 }
 
-enum TokenType {
-  ACCESS = 0;
-  REFRESH = 1;
-}
-
 message VerifyTokenRequest {
   string token = 1;
-  TokenType token_type = 2;
 }
 
 message VerifyTokenResponse {
