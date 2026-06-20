@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package guilds.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service GuildService {
+  rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
+  rpc RemoveGuild(RemoveGuildRequest) returns (RemoveGuildResponse);
+  rpc DeleteGuild(DeleteGuildRequest) returns (DeleteGuildResponse);
+}
+
+message Guild {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  bool is_public = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message GuildMember {
+  string id = 1;
+  string user_id = 2;
+  string guild_id = 3;
+  bool is_guild_owner = 4;
+  bool is_banned = 5;
+  google.protobuf.Timestamp joined_at = 6;
+  google.protobuf.Timestamp banned_at = 7;
+}
+
+message GetUserGuildsRequest {
+  string user_id = 1;
+}
+
+message GetUserGuildsResponse {
+  repeated Guild guilds = 1;
+}
+
+message RemoveGuildRequest {
+  string guild_id = 1;
+  string user_id = 2;
+}
+
+message RemoveGuildResponse {
+  bool success = 1;
+}
+
+message DeleteGuildRequest {
+  string guild_id = 1;
+  string user_id = 2;
+}
+
+message DeleteGuildResponse {
+  bool success = 1;
+}
