@@ -14,7 +14,7 @@ export const protobufPackage = "guilds.v1";
 export interface Guild {
   id: string;
   name: string;
-  description: string;
+  description?: string | undefined;
   isPublic: boolean;
   createdAt: Timestamp | undefined;
   updatedAt: Timestamp | undefined;
@@ -27,7 +27,7 @@ export interface GuildMember {
   isGuildOwner: boolean;
   isBanned: boolean;
   joinedAt: Timestamp | undefined;
-  bannedAt: Timestamp | undefined;
+  bannedAt?: Timestamp | undefined;
 }
 
 export interface GetUserGuildsRequest {

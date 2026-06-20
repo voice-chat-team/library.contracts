@@ -13,7 +13,7 @@ service GuildService {
 message Guild {
   string id = 1;
   string name = 2;
-  string description = 3;
+  optional string description = 3;
   bool is_public = 4;
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp updated_at = 6;
@@ -26,7 +26,7 @@ message GuildMember {
   bool is_guild_owner = 4;
   bool is_banned = 5;
   google.protobuf.Timestamp joined_at = 6;
-  google.protobuf.Timestamp banned_at = 7;
+  optional google.protobuf.Timestamp banned_at = 7;
 }
 
 message GetUserGuildsRequest {
