@@ -7,7 +7,6 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { Timestamp } from "./google/protobuf/timestamp";
 
 export const protobufPackage = "guilds.v1";
 
@@ -16,8 +15,8 @@ export interface Guild {
   name: string;
   description?: string | undefined;
   isPublic: boolean;
-  createdAt: Timestamp | undefined;
-  updatedAt: Timestamp | undefined;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface GuildMember {
@@ -26,8 +25,8 @@ export interface GuildMember {
   guildId: string;
   isGuildOwner: boolean;
   isBanned: boolean;
-  joinedAt: Timestamp | undefined;
-  bannedAt?: Timestamp | undefined;
+  joinedAt: string;
+  bannedAt?: string | undefined;
 }
 
 export interface GetUserGuildsRequest {
