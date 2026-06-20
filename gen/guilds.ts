@@ -6,8 +6,8 @@
 
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
+import { wrappers } from "protobufjs";
 import { Observable } from "rxjs";
-import { Timestamp } from "./google/protobuf/timestamp";
 
 export const protobufPackage = "guilds.v1";
 
@@ -16,8 +16,8 @@ export interface Guild {
   name: string;
   description?: string | undefined;
   isPublic: boolean;
-  createdAt: Timestamp | undefined;
-  updatedAt: Timestamp | undefined;
+  createdAt: Date | undefined;
+  updatedAt: Date | undefined;
 }
 
 export interface GuildMember {
@@ -26,8 +26,8 @@ export interface GuildMember {
   guildId: string;
   isGuildOwner: boolean;
   isBanned: boolean;
-  joinedAt: Timestamp | undefined;
-  bannedAt?: Timestamp | undefined;
+  joinedAt: Date | undefined;
+  bannedAt?: Date | undefined;
 }
 
 export interface GetUserGuildsRequest {
@@ -57,6 +57,15 @@ export interface DeleteGuildResponse {
 }
 
 export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
+
+wrappers[".google.protobuf.Timestamp"] = {
+  fromObject(value: Date) {
+    return { seconds: value.getTime() / 1000, nanos: (value.getTime() % 1000) * 1e6 };
+  },
+  toObject(message: { seconds: number; nanos: number }) {
+    return new Date(message.seconds * 1000 + message.nanos / 1e6);
+  },
+} as any;
 
 export interface GuildServiceClient {
   getUserGuilds(request: GetUserGuildsRequest): Observable<GetUserGuildsResponse>;
