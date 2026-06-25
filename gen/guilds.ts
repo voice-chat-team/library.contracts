@@ -33,6 +33,7 @@ export interface CreateGuildRequest {
   name: string;
   description?: string | undefined;
   isPublic: boolean;
+  userId: string;
 }
 
 export interface CreateGuildResponse {

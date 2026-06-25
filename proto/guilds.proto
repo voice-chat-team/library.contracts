@@ -32,6 +32,7 @@ message CreateGuildRequest {
   string name = 1;
   optional string description = 2;
   bool is_public = 3;
+  string user_id = 4;
 }
 
 message CreateGuildResponse {
