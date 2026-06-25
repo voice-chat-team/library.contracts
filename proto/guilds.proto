@@ -36,7 +36,7 @@ message CreateGuildRequest {
 }
 
 message CreateGuildResponse {
-  repeated Guild guilds = 1;
+  Guild guild = 1;
 }
 
 message GetUserGuildsRequest {

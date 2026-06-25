@@ -37,7 +37,7 @@ export interface CreateGuildRequest {
 }
 
 export interface CreateGuildResponse {
-  guilds: Guild[];
+  guild: Guild | undefined;
 }
 
 export interface GetUserGuildsRequest {
