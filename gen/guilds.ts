@@ -29,6 +29,16 @@ export interface GuildMember {
   bannedAt?: string | undefined;
 }
 
+export interface CreateGuildRequest {
+  name: string;
+  description?: string | undefined;
+  isPublic: boolean;
+}
+
+export interface CreateGuildResponse {
+  guilds: Guild[];
+}
+
 export interface GetUserGuildsRequest {
   userId: string;
 }
@@ -60,6 +70,8 @@ export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 export interface GuildServiceClient {
   getUserGuilds(request: GetUserGuildsRequest): Observable<GetUserGuildsResponse>;
 
+  createGuild(request: CreateGuildRequest): Observable<CreateGuildResponse>;
+
   removeGuild(request: RemoveGuildRequest): Observable<RemoveGuildResponse>;
 
   deleteGuild(request: DeleteGuildRequest): Observable<DeleteGuildResponse>;
@@ -69,6 +81,10 @@ export interface GuildServiceController {
   getUserGuilds(
     request: GetUserGuildsRequest,
   ): Promise<GetUserGuildsResponse> | Observable<GetUserGuildsResponse> | GetUserGuildsResponse;
+
+  createGuild(
+    request: CreateGuildRequest,
+  ): Promise<CreateGuildResponse> | Observable<CreateGuildResponse> | CreateGuildResponse;
 
   removeGuild(
     request: RemoveGuildRequest,
@@ -81,7 +97,7 @@ export interface GuildServiceController {
 
 export function GuildServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUserGuilds", "removeGuild", "deleteGuild"];
+    const grpcMethods: string[] = ["getUserGuilds", "createGuild", "removeGuild", "deleteGuild"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("GuildService", method)(constructor.prototype[method], method, descriptor);

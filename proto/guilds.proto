@@ -4,6 +4,7 @@ package guilds.v1;
 
 service GuildService {
   rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
+  rpc CreateGuild(CreateGuildRequest) returns (CreateGuildResponse);
   rpc RemoveGuild(RemoveGuildRequest) returns (RemoveGuildResponse);
   rpc DeleteGuild(DeleteGuildRequest) returns (DeleteGuildResponse);
 }
@@ -25,6 +26,16 @@ message GuildMember {
   bool is_banned = 5;
   string joined_at = 6;
   optional string banned_at = 7;
+}
+
+message CreateGuildRequest {
+  string name = 1;
+  optional string description = 2;
+  bool is_public = 3;
+}
+
+message CreateGuildResponse {
+  repeated Guild guilds = 1;
 }
 
 message GetUserGuildsRequest {
