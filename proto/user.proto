@@ -7,6 +7,15 @@ import "common.proto";
 service UserService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc GetRangeUsersById(GetRangeUsersByIdRequest) returns (GetRangeUsersByIdResponse);
+}
+
+message GetRangeUsersByIdRequest {
+  repeated string users_id = 1;
+}
+
+message GetRangeUsersByIdResponse {
+  repeated common.v1.UserProfile users = 1;
 }
 
 message GetUserRequest {

@@ -11,6 +11,14 @@ import { UserProfile } from "./common";
 
 export const protobufPackage = "user.v1";
 
+export interface GetRangeUsersByIdRequest {
+  usersId: string[];
+}
+
+export interface GetRangeUsersByIdResponse {
+  users: UserProfile[];
+}
+
 export interface GetUserRequest {
   userId?: string | undefined;
   email?: string | undefined;
@@ -37,6 +45,8 @@ export interface UserServiceClient {
   getUser(request: GetUserRequest): Observable<GetUserResponse>;
 
   createUser(request: CreateUserRequest): Observable<CreateUserResponse>;
+
+  getRangeUsersById(request: GetRangeUsersByIdRequest): Observable<GetRangeUsersByIdResponse>;
 }
 
 export interface UserServiceController {
@@ -45,11 +55,15 @@ export interface UserServiceController {
   createUser(
     request: CreateUserRequest,
   ): Promise<CreateUserResponse> | Observable<CreateUserResponse> | CreateUserResponse;
+
+  getRangeUsersById(
+    request: GetRangeUsersByIdRequest,
+  ): Promise<GetRangeUsersByIdResponse> | Observable<GetRangeUsersByIdResponse> | GetRangeUsersByIdResponse;
 }
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUser", "createUser"];
+    const grpcMethods: string[] = ["getUser", "createUser", "getRangeUsersById"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);
