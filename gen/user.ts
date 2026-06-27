@@ -7,7 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { Timestamp } from "./google/protobuf/timestamp";
+import { UserProfile } from "./common";
 
 export const protobufPackage = "user.v1";
 
@@ -24,21 +24,11 @@ export interface CreateUserRequest {
 }
 
 export interface GetUserResponse {
-  user: User | undefined;
+  user: UserProfile | undefined;
 }
 
 export interface CreateUserResponse {
-  user: User | undefined;
-}
-
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  avatarUrl: string;
-  passwordHash: string;
-  createdAt: Timestamp | undefined;
-  updatedAt: Timestamp | undefined;
+  user: UserProfile | undefined;
 }
 
 export const USER_V1_PACKAGE_NAME = "user.v1";

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user.v1;
 
-import "google/protobuf/timestamp.proto";
+import "common.proto";
 
 service UserService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
@@ -24,19 +24,9 @@ message CreateUserRequest {
 }
 
 message GetUserResponse {
-  User user = 1;
+  common.v1.UserProfile user = 1;
 }
 
 message CreateUserResponse {
-  User user = 1;
-}
-
-message User {
-  string id = 1;
-  string username = 2;
-  string email = 3;
-  string avatar_url = 4;
-  string password_hash = 5;
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp updated_at = 7;
+  common.v1.UserProfile user = 1;
 }

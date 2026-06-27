@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package guilds.v1;
 
+import "common.proto";
+
 service GuildService {
   rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
   rpc GetGuildMembers(GetGuildMembersRequest) returns (GetGuildMembersResponse);
@@ -33,6 +35,7 @@ message GuildMember {
   bool is_banned = 5;
   string joined_at = 6;
   optional string banned_at = 7;
+  common.v1.UserProfile user = 8;
 }
 
 message Channel {

@@ -7,6 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
+import { UserProfile } from "./common";
 
 export const protobufPackage = "guilds.v1";
 
@@ -33,6 +34,7 @@ export interface GuildMember {
   isBanned: boolean;
   joinedAt: string;
   bannedAt?: string | undefined;
+  user: UserProfile | undefined;
 }
 
 export interface Channel {
