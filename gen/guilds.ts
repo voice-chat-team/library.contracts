@@ -10,6 +10,12 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "guilds.v1";
 
+export enum ChannelType {
+  TEXT = 0,
+  VOICE = 1,
+  UNRECOGNIZED = -1,
+}
+
 export interface Guild {
   id: string;
   name: string;
@@ -27,6 +33,16 @@ export interface GuildMember {
   isBanned: boolean;
   joinedAt: string;
   bannedAt?: string | undefined;
+}
+
+export interface Channel {
+  id: string;
+  guildId: string;
+  name: string;
+  type: ChannelType;
+  isPrivate: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateGuildRequest {
@@ -66,6 +82,44 @@ export interface DeleteGuildResponse {
   success: boolean;
 }
 
+export interface CreateChannelRequest {
+  guildId: string;
+  name: string;
+  type: ChannelType;
+  isPrivate: boolean;
+}
+
+export interface CreateChannelResponse {
+  channel: Channel | undefined;
+}
+
+export interface GetGuildChannelsRequest {
+  guildId: string;
+}
+
+export interface GetGuildChannelsResponse {
+  channels: Channel[];
+}
+
+export interface UpdateChannelRequest {
+  channelId: string;
+  name?: string | undefined;
+  isPrivate?: boolean | undefined;
+}
+
+export interface UpdateChannelResponse {
+  channel: Channel | undefined;
+}
+
+export interface DeleteChannelRequest {
+  channelId: string;
+  guildId: string;
+}
+
+export interface DeleteChannelResponse {
+  success: boolean;
+}
+
 export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 
 export interface GuildServiceClient {
@@ -76,6 +130,14 @@ export interface GuildServiceClient {
   removeGuild(request: RemoveGuildRequest): Observable<RemoveGuildResponse>;
 
   deleteGuild(request: DeleteGuildRequest): Observable<DeleteGuildResponse>;
+
+  createChannel(request: CreateChannelRequest): Observable<CreateChannelResponse>;
+
+  getGuildChannels(request: GetGuildChannelsRequest): Observable<GetGuildChannelsResponse>;
+
+  updateChannel(request: UpdateChannelRequest): Observable<UpdateChannelResponse>;
+
+  deleteChannel(request: DeleteChannelRequest): Observable<DeleteChannelResponse>;
 }
 
 export interface GuildServiceController {
@@ -94,11 +156,36 @@ export interface GuildServiceController {
   deleteGuild(
     request: DeleteGuildRequest,
   ): Promise<DeleteGuildResponse> | Observable<DeleteGuildResponse> | DeleteGuildResponse;
+
+  createChannel(
+    request: CreateChannelRequest,
+  ): Promise<CreateChannelResponse> | Observable<CreateChannelResponse> | CreateChannelResponse;
+
+  getGuildChannels(
+    request: GetGuildChannelsRequest,
+  ): Promise<GetGuildChannelsResponse> | Observable<GetGuildChannelsResponse> | GetGuildChannelsResponse;
+
+  updateChannel(
+    request: UpdateChannelRequest,
+  ): Promise<UpdateChannelResponse> | Observable<UpdateChannelResponse> | UpdateChannelResponse;
+
+  deleteChannel(
+    request: DeleteChannelRequest,
+  ): Promise<DeleteChannelResponse> | Observable<DeleteChannelResponse> | DeleteChannelResponse;
 }
 
 export function GuildServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUserGuilds", "createGuild", "removeGuild", "deleteGuild"];
+    const grpcMethods: string[] = [
+      "getUserGuilds",
+      "createGuild",
+      "removeGuild",
+      "deleteGuild",
+      "createChannel",
+      "getGuildChannels",
+      "updateChannel",
+      "deleteChannel",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("GuildService", method)(constructor.prototype[method], method, descriptor);
