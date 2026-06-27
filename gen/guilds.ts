@@ -45,6 +45,14 @@ export interface Channel {
   updatedAt: string;
 }
 
+export interface GetGuildMembersRequest {
+  guildId: string;
+}
+
+export interface GetGuildMembersResponse {
+  members: GuildMember[];
+}
+
 export interface CreateGuildRequest {
   name: string;
   description?: string | undefined;
@@ -125,6 +133,8 @@ export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 export interface GuildServiceClient {
   getUserGuilds(request: GetUserGuildsRequest): Observable<GetUserGuildsResponse>;
 
+  getGuildMembers(request: GetGuildMembersRequest): Observable<GetGuildMembersResponse>;
+
   createGuild(request: CreateGuildRequest): Observable<CreateGuildResponse>;
 
   removeGuild(request: RemoveGuildRequest): Observable<RemoveGuildResponse>;
@@ -144,6 +154,10 @@ export interface GuildServiceController {
   getUserGuilds(
     request: GetUserGuildsRequest,
   ): Promise<GetUserGuildsResponse> | Observable<GetUserGuildsResponse> | GetUserGuildsResponse;
+
+  getGuildMembers(
+    request: GetGuildMembersRequest,
+  ): Promise<GetGuildMembersResponse> | Observable<GetGuildMembersResponse> | GetGuildMembersResponse;
 
   createGuild(
     request: CreateGuildRequest,
@@ -178,6 +192,7 @@ export function GuildServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
       "getUserGuilds",
+      "getGuildMembers",
       "createGuild",
       "removeGuild",
       "deleteGuild",

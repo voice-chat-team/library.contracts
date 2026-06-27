@@ -4,6 +4,7 @@ package guilds.v1;
 
 service GuildService {
   rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
+  rpc GetGuildMembers(GetGuildMembersRequest) returns (GetGuildMembersResponse);
 
   rpc CreateGuild(CreateGuildRequest) returns (CreateGuildResponse);
   rpc RemoveGuild(RemoveGuildRequest) returns (RemoveGuildResponse);
@@ -47,6 +48,14 @@ message Channel {
 enum ChannelType {
   TEXT = 0;
   VOICE = 1;
+}
+
+message GetGuildMembersRequest {
+  string guild_id = 1;
+}
+
+message GetGuildMembersResponse {
+  repeated GuildMember members = 1;
 }
 
 message CreateGuildRequest {
