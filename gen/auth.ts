@@ -40,6 +40,15 @@ export interface RegistrationResponse {
   status: boolean;
 }
 
+export interface RefreshTokenRequest {
+  refreshToken: string;
+}
+
+export interface RefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export const AUTH_V1_PACKAGE_NAME = "auth.v1";
 
 export interface AuthServiceClient {
@@ -48,6 +57,8 @@ export interface AuthServiceClient {
   registration(request: RegistrationRequest): Observable<RegistrationResponse>;
 
   verifyToken(request: VerifyTokenRequest): Observable<VerifyTokenResponse>;
+
+  refreshToken(request: RefreshTokenRequest): Observable<RefreshTokenResponse>;
 }
 
 export interface AuthServiceController {
@@ -60,11 +71,15 @@ export interface AuthServiceController {
   verifyToken(
     request: VerifyTokenRequest,
   ): Promise<VerifyTokenResponse> | Observable<VerifyTokenResponse> | VerifyTokenResponse;
+
+  refreshToken(
+    request: RefreshTokenRequest,
+  ): Promise<RefreshTokenResponse> | Observable<RefreshTokenResponse> | RefreshTokenResponse;
 }
 
 export function AuthServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["login", "registration", "verifyToken"];
+    const grpcMethods: string[] = ["login", "registration", "verifyToken", "refreshToken"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("AuthService", method)(constructor.prototype[method], method, descriptor);

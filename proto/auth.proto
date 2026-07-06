@@ -6,6 +6,7 @@ service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Registration(RegistrationRequest) returns (RegistrationResponse);
   rpc VerifyToken(VerifyTokenRequest) returns (VerifyTokenResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
 }
 
 message VerifyTokenRequest {
@@ -36,4 +37,13 @@ message RegistrationRequest {
 
 message RegistrationResponse {
   bool status = 1;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
 }
