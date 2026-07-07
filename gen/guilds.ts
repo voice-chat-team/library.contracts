@@ -76,6 +76,7 @@ export interface GetMemberByIdResponse {
 
 export interface GetMemberByIdRequest {
   userId: string;
+  guildId: string;
 }
 
 export interface GetUserGuildsResponse {

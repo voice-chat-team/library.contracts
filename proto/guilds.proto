@@ -83,6 +83,7 @@ message GetMemberByIdResponse {
 
 message GetMemberByIdRequest {
   string user_id = 1;
+  string guild_id = 2;
 }
 
 message GetUserGuildsResponse {
