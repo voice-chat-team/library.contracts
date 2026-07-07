@@ -11,3 +11,10 @@ message UserProfile {
   string created_at = 6;
   string updated_at = 7;
 }
+
+enum GuildRoles {
+  GUILD_ROLES_OWNER = 0;
+  GUILD_ROLES_ADMIN = 1;
+  GUILD_ROLES_MODERATOR = 2;
+  GUILD_ROLES_MEMBER = 3;
+}

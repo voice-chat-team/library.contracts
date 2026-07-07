@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package invitation.v1;
+
+import "common.proto";
+
+service InvitationService {
+  rpc CreateInvitation(CreateInvitationRequest) returns (CreateInvitationResponse);
+  rpc GetInvitations(GetInvitationsRequest) returns (GetInvitationsResponse);
+  rpc AcceptInvitation(AcceptInvitationRequest) returns (AcceptInvitationResponse);
+  rpc RevokeInvitation(RevokeInvitationRequest) returns (RevokeInvitationResponse);
+}
+
+enum InvitationStatus {
+  PENDING = 0;
+  ACCEPTED = 1;
+  DECLINED = 2;
+  EXPIRED = 3;
+}
+
+message Invitation {
+  string id = 1;
+  string guild_id = 2;
+  string sender_id = 3;
+  string receiver_id = 4;
+  string expires_at = 5;
+  string created_at = 6;
+  InvitationStatus status = 7;
+  common.v1.GuildRoles invited_role = 8;
+}
+
+message CreateInvitationRequest {
+  string guild_id = 1;
+  string sender_id = 2;
+  string receiver_id = 3;
+  common.v1.GuildRoles invited_role = 4;
+}
+
+message CreateInvitationResponse {
+  Invitation invitation = 1;
+}
+
+message GetInvitationsRequest {
+  oneof identifier {
+    string guild_id = 1;
+    string sender_id = 2;
+    string receiver_id = 3;
+  }
+}
+
+message GetInvitationsResponse {
+  repeated Invitation invitation = 1;
+}
+
+message AcceptInvitationRequest {
+  string invitation_id = 1;
+  string user_id = 2;
+}
+
+message AcceptInvitationResponse {
+  bool success = 1;
+}
+
+message RevokeInvitationRequest {
+  string invitation_id = 1;
+  string user_id = 2;
+}
+
+message RevokeInvitationResponse {
+  bool success = 1;
+}

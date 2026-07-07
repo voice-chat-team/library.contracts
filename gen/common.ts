@@ -8,6 +8,14 @@
 
 export const protobufPackage = "common.v1";
 
+export enum GuildRoles {
+  GUILD_ROLES_OWNER = 0,
+  GUILD_ROLES_ADMIN = 1,
+  GUILD_ROLES_MODERATOR = 2,
+  GUILD_ROLES_MEMBER = 3,
+  UNRECOGNIZED = -1,
+}
+
 export interface UserProfile {
   id: string;
   username: string;
