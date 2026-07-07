@@ -7,6 +7,7 @@ import "common.proto";
 service GuildService {
   rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
   rpc GetGuildMembers(GetGuildMembersRequest) returns (GetGuildMembersResponse);
+  rpc GetMemberById(GetMemberByIdRequest) returns (GetMemberByIdResponse);
 
   rpc CreateGuild(CreateGuildRequest) returns (CreateGuildResponse);
   rpc RemoveGuild(RemoveGuildRequest) returns (RemoveGuildResponse);
@@ -73,6 +74,14 @@ message CreateGuildResponse {
 }
 
 message GetUserGuildsRequest {
+  string user_id = 1;
+}
+
+message GetMemberByIdResponse {
+  GuildMember member_info = 1;
+}
+
+message GetMemberByIdRequest {
   string user_id = 1;
 }
 
