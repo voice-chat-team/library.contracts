@@ -7,7 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { GuildRoles } from "./common";
+import { GuildRoles, UserProfile } from "./common";
 
 export const protobufPackage = "invitation.v1";
 
@@ -28,12 +28,15 @@ export interface Invitation {
   createdAt: string;
   status: InvitationStatus;
   invitedRole: GuildRoles;
+  receiverInfo: UserProfile | undefined;
+  senderInfo: UserProfile | undefined;
 }
 
 export interface CreateInvitationRequest {
   guildId: string;
   senderId: string;
-  receiverId: string;
+  receiverId?: string | undefined;
+  receiverUsername?: string | undefined;
   invitedRole: GuildRoles;
 }
 
