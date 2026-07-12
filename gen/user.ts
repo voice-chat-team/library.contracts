@@ -7,7 +7,7 @@
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
 import { Observable } from "rxjs";
-import { UserProfile } from "./common";
+import { AuthUserProfile, UserProfile } from "./common";
 
 export const protobufPackage = "user.v1";
 
@@ -25,6 +25,12 @@ export interface GetUserRequest {
   username?: string | undefined;
 }
 
+export interface GetUserForAuthRequest {
+  userId?: string | undefined;
+  email?: string | undefined;
+  username?: string | undefined;
+}
+
 export interface CreateUserRequest {
   username: string;
   email: string;
@@ -33,6 +39,10 @@ export interface CreateUserRequest {
 
 export interface GetUserResponse {
   user: UserProfile | undefined;
+}
+
+export interface GetUserForAuthResponse {
+  user: AuthUserProfile | undefined;
 }
 
 export interface CreateUserResponse {
@@ -44,6 +54,8 @@ export const USER_V1_PACKAGE_NAME = "user.v1";
 export interface UserServiceClient {
   getUser(request: GetUserRequest): Observable<GetUserResponse>;
 
+  getUserForAuth(request: GetUserForAuthRequest): Observable<GetUserForAuthResponse>;
+
   createUser(request: CreateUserRequest): Observable<CreateUserResponse>;
 
   getRangeUsersById(request: GetRangeUsersByIdRequest): Observable<GetRangeUsersByIdResponse>;
@@ -51,6 +63,10 @@ export interface UserServiceClient {
 
 export interface UserServiceController {
   getUser(request: GetUserRequest): Promise<GetUserResponse> | Observable<GetUserResponse> | GetUserResponse;
+
+  getUserForAuth(
+    request: GetUserForAuthRequest,
+  ): Promise<GetUserForAuthResponse> | Observable<GetUserForAuthResponse> | GetUserForAuthResponse;
 
   createUser(
     request: CreateUserRequest,
@@ -63,7 +79,7 @@ export interface UserServiceController {
 
 export function UserServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["getUser", "createUser", "getRangeUsersById"];
+    const grpcMethods: string[] = ["getUser", "getUserForAuth", "createUser", "getRangeUsersById"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("UserService", method)(constructor.prototype[method], method, descriptor);

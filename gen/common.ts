@@ -21,6 +21,15 @@ export interface UserProfile {
   username: string;
   email?: string | undefined;
   avatarUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AuthUserProfile {
+  id: string;
+  username: string;
+  email?: string | undefined;
+  avatarUrl: string;
   passwordHash?: string | undefined;
   createdAt: string;
   updatedAt: string;

@@ -6,6 +6,7 @@ import "common.proto";
 
 service UserService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc GetUserForAuth(GetUserForAuthRequest) returns (GetUserForAuthResponse);
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
   rpc GetRangeUsersById(GetRangeUsersByIdRequest) returns (GetRangeUsersByIdResponse);
 }
@@ -26,6 +27,14 @@ message GetUserRequest {
   }
 }
 
+message GetUserForAuthRequest {
+  oneof identifier {
+    string user_id = 1;
+    string email = 2;
+    string username = 3;
+  }
+}
+
 message CreateUserRequest {
   string username = 1;
   string email = 2;
@@ -34,6 +43,10 @@ message CreateUserRequest {
 
 message GetUserResponse {
   common.v1.UserProfile user = 1;
+}
+
+message GetUserForAuthResponse {
+  common.v1.AuthUserProfile user = 1;
 }
 
 message CreateUserResponse {
