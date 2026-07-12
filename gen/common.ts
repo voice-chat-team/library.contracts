@@ -28,9 +28,9 @@ export interface UserProfile {
 export interface AuthUserProfile {
   id: string;
   username: string;
-  email?: string | undefined;
+  email: string;
   avatarUrl: string;
-  passwordHash?: string | undefined;
+  passwordHash: string;
   createdAt: string;
   updatedAt: string;
 }
