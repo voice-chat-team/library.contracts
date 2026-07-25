@@ -38,7 +38,7 @@ export interface GetNotificationsResponse {
 }
 
 export interface Notification {
-  notificationId: string;
+  id: string;
   senderId: string;
   receiverId: string;
   notificationPayload: string;
