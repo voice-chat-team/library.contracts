@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package notification.v1;
 
+import "google/protobuf/struct.proto";
+
 service NotificationService {
   rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse);
@@ -11,7 +13,8 @@ service NotificationService {
 message SendNotificationRequest {
   string sender_id = 1;
   string receiver_id = 2;
-  string notification_payload = 3;
+  google.protobuf.Struct notification_payload = 3;
+  string channel = 4;
 }
 
 message SendNotificationResponse {
@@ -41,7 +44,7 @@ message Notification {
   string id = 1;
   string sender_id = 2;
   string receiver_id = 3;
-  string notification_payload = 4;
+  google.protobuf.Struct notification_payload = 4;
   string created_at = 5;
   bool is_read = 6;
 }
