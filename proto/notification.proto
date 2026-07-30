@@ -13,7 +13,7 @@ service NotificationService {
 message SendNotificationRequest {
   string sender_id = 1;
   string receiver_id = 2;
-  google.protobuf.Struct notification_payload = 3;
+  string notification_payload = 3;
   string channel = 4;
 }
 

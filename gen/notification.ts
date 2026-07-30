@@ -15,7 +15,7 @@ export const protobufPackage = "notification.v1";
 export interface SendNotificationRequest {
   senderId: string;
   receiverId: string;
-  notificationPayload: { [key: string]: any } | undefined;
+  notificationPayload: string;
   channel: string;
 }
 
