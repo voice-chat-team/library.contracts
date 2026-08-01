@@ -44,7 +44,7 @@ message Notification {
   string id = 1;
   string sender_id = 2;
   string receiver_id = 3;
-  google.protobuf.Struct notification_payload = 4;
+  string notification_payload = 4;
   string created_at = 5;
   bool is_read = 6;
 }

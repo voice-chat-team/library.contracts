@@ -6,9 +6,7 @@
 
 /* eslint-disable */
 import { GrpcMethod, GrpcStreamMethod } from "@nestjs/microservices";
-import { wrappers } from "protobufjs";
 import { Observable } from "rxjs";
-import { Struct } from "./google/protobuf/struct";
 
 export const protobufPackage = "notification.v1";
 
@@ -44,14 +42,12 @@ export interface Notification {
   id: string;
   senderId: string;
   receiverId: string;
-  notificationPayload: { [key: string]: any } | undefined;
+  notificationPayload: string;
   createdAt: string;
   isRead: boolean;
 }
 
 export const NOTIFICATION_V1_PACKAGE_NAME = "notification.v1";
-
-wrappers[".google.protobuf.Struct"] = { fromObject: Struct.wrap, toObject: Struct.unwrap } as any;
 
 export interface NotificationServiceClient {
   sendNotification(request: SendNotificationRequest): Observable<SendNotificationResponse>;
