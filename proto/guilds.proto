@@ -5,6 +5,7 @@ package guilds.v1;
 import "common.proto";
 
 service GuildService {
+  rpc GetGuildById(GetGuildByIdRequest) returns (GetGuildByIdResponse);
   rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
   rpc GetGuildMembers(GetGuildMembersRequest) returns (GetGuildMembersResponse);
   rpc GetMemberById(GetMemberByIdRequest) returns (GetMemberByIdResponse);
@@ -52,6 +53,14 @@ message Channel {
 enum ChannelType {
   TEXT = 0;
   VOICE = 1;
+}
+
+message GetGuildByIdRequest {
+  string guild_id = 1;
+}
+
+message GetGuildByIdResponse {
+  Guild guild = 1;
 }
 
 message GetGuildMembersRequest {

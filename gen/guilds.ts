@@ -47,6 +47,14 @@ export interface Channel {
   updatedAt: string;
 }
 
+export interface GetGuildByIdRequest {
+  guildId: string;
+}
+
+export interface GetGuildByIdResponse {
+  guild: Guild | undefined;
+}
+
 export interface GetGuildMembersRequest {
   guildId: string;
 }
@@ -142,6 +150,8 @@ export interface DeleteChannelResponse {
 export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 
 export interface GuildServiceClient {
+  getGuildById(request: GetGuildByIdRequest): Observable<GetGuildByIdResponse>;
+
   getUserGuilds(request: GetUserGuildsRequest): Observable<GetUserGuildsResponse>;
 
   getGuildMembers(request: GetGuildMembersRequest): Observable<GetGuildMembersResponse>;
@@ -164,6 +174,10 @@ export interface GuildServiceClient {
 }
 
 export interface GuildServiceController {
+  getGuildById(
+    request: GetGuildByIdRequest,
+  ): Promise<GetGuildByIdResponse> | Observable<GetGuildByIdResponse> | GetGuildByIdResponse;
+
   getUserGuilds(
     request: GetUserGuildsRequest,
   ): Promise<GetUserGuildsResponse> | Observable<GetUserGuildsResponse> | GetUserGuildsResponse;
@@ -208,6 +222,7 @@ export interface GuildServiceController {
 export function GuildServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
+      "getGuildById",
       "getUserGuilds",
       "getGuildMembers",
       "getMemberById",
