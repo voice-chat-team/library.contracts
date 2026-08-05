@@ -10,11 +10,19 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "notification.v1";
 
+export enum NotificationType {
+  GUILD_MEMBER_ADD = 0,
+  GUILD_MEMBER_LEAVE = 1,
+  NEW_INVITE_TO_GUILD = 2,
+  UNRECOGNIZED = -1,
+}
+
 export interface SendNotificationRequest {
   senderId: string;
   receiverId: string;
   notificationPayload: string;
   channel: string;
+  notificationType: NotificationType;
 }
 
 export interface SendNotificationResponse {
@@ -45,6 +53,7 @@ export interface Notification {
   notificationPayload: string;
   createdAt: string;
   isRead: boolean;
+  notificationType: NotificationType;
 }
 
 export const NOTIFICATION_V1_PACKAGE_NAME = "notification.v1";

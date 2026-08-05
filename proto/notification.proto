@@ -2,12 +2,16 @@ syntax = "proto3";
 
 package notification.v1;
 
-import "google/protobuf/struct.proto";
-
 service NotificationService {
   rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse);
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+}
+
+enum NotificationType {
+  GUILD_MEMBER_ADD = 0;
+  GUILD_MEMBER_LEAVE = 1;
+  NEW_INVITE_TO_GUILD = 2;
 }
 
 message SendNotificationRequest {
@@ -15,6 +19,7 @@ message SendNotificationRequest {
   string receiver_id = 2;
   string notification_payload = 3;
   string channel = 4;
+  NotificationType notification_type = 5;
 }
 
 message SendNotificationResponse {
@@ -47,4 +52,5 @@ message Notification {
   string notification_payload = 4;
   string created_at = 5;
   bool is_read = 6;
+  NotificationType notification_type = 7;
 }
