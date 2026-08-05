@@ -18,6 +18,9 @@ service GuildService {
   rpc GetGuildChannels(GetGuildChannelsRequest) returns (GetGuildChannelsResponse);
   rpc UpdateChannel(UpdateChannelRequest) returns (UpdateChannelResponse);
   rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelResponse);
+
+  rpc JoinUserToGuild(JoinUserToGuildRequest) returns (JoinUserToGuildResponse);
+  rpc LeaveUserFromGuild(LeaveUserFromGuildRequest) returns (LeaveUserFromGuildResponse);
 }
 
 message Guild {
@@ -53,6 +56,24 @@ message Channel {
 enum ChannelType {
   TEXT = 0;
   VOICE = 1;
+}
+
+message JoinUserToGuildRequest {
+  string user_id = 1;
+  string guild_id = 2;
+}
+
+message JoinUserToGuildResponse {
+   GuildMember member_info = 1;
+}
+
+message LeaveUserFromGuildRequest {
+  string user_id = 1;
+  string guild_id = 2;
+}
+
+message LeaveUserFromGuildResponse {
+   GuildMember member_info = 1;
 }
 
 message GetGuildByIdRequest {

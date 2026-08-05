@@ -47,6 +47,24 @@ export interface Channel {
   updatedAt: string;
 }
 
+export interface JoinUserToGuildRequest {
+  userId: string;
+  guildId: string;
+}
+
+export interface JoinUserToGuildResponse {
+  memberInfo: GuildMember | undefined;
+}
+
+export interface LeaveUserFromGuildRequest {
+  userId: string;
+  guildId: string;
+}
+
+export interface LeaveUserFromGuildResponse {
+  memberInfo: GuildMember | undefined;
+}
+
 export interface GetGuildByIdRequest {
   guildId: string;
 }
@@ -171,6 +189,10 @@ export interface GuildServiceClient {
   updateChannel(request: UpdateChannelRequest): Observable<UpdateChannelResponse>;
 
   deleteChannel(request: DeleteChannelRequest): Observable<DeleteChannelResponse>;
+
+  joinUserToGuild(request: JoinUserToGuildRequest): Observable<JoinUserToGuildResponse>;
+
+  leaveUserFromGuild(request: LeaveUserFromGuildRequest): Observable<LeaveUserFromGuildResponse>;
 }
 
 export interface GuildServiceController {
@@ -217,6 +239,14 @@ export interface GuildServiceController {
   deleteChannel(
     request: DeleteChannelRequest,
   ): Promise<DeleteChannelResponse> | Observable<DeleteChannelResponse> | DeleteChannelResponse;
+
+  joinUserToGuild(
+    request: JoinUserToGuildRequest,
+  ): Promise<JoinUserToGuildResponse> | Observable<JoinUserToGuildResponse> | JoinUserToGuildResponse;
+
+  leaveUserFromGuild(
+    request: LeaveUserFromGuildRequest,
+  ): Promise<LeaveUserFromGuildResponse> | Observable<LeaveUserFromGuildResponse> | LeaveUserFromGuildResponse;
 }
 
 export function GuildServiceControllerMethods() {
@@ -233,6 +263,8 @@ export function GuildServiceControllerMethods() {
       "getGuildChannels",
       "updateChannel",
       "deleteChannel",
+      "joinUserToGuild",
+      "leaveUserFromGuild",
     ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
