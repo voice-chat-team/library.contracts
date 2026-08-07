@@ -6,12 +6,23 @@ service NotificationService {
   rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse);
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+
+  rpc UpdateNotificationPayload(UpdateNotificationPayloadRequest) returns (UpdateNotificationPayloadResponse);
 }
 
 enum NotificationType {
   GUILD_MEMBER_ADD = 0;
   GUILD_MEMBER_LEAVE = 1;
   NEW_INVITE_TO_GUILD = 2;
+}
+
+message UpdateNotificationPayloadRequest {
+  string notification_id = 1;
+  string notification_payload = 2;
+}
+
+message UpdateNotificationPayloadResponse {
+  Notification notification = 1;
 }
 
 message SendNotificationRequest {

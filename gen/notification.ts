@@ -17,6 +17,15 @@ export enum NotificationType {
   UNRECOGNIZED = -1,
 }
 
+export interface UpdateNotificationPayloadRequest {
+  notificationId: string;
+  notificationPayload: string;
+}
+
+export interface UpdateNotificationPayloadResponse {
+  notification: Notification | undefined;
+}
+
 export interface SendNotificationRequest {
   senderId: string;
   receiverId: string;
@@ -64,6 +73,8 @@ export interface NotificationServiceClient {
   readNotification(request: ReadNotificationRequest): Observable<ReadNotificationResponse>;
 
   getNotifications(request: GetNotificationsRequest): Observable<GetNotificationsResponse>;
+
+  updateNotificationPayload(request: UpdateNotificationPayloadRequest): Observable<UpdateNotificationPayloadResponse>;
 }
 
 export interface NotificationServiceController {
@@ -78,11 +89,23 @@ export interface NotificationServiceController {
   getNotifications(
     request: GetNotificationsRequest,
   ): Promise<GetNotificationsResponse> | Observable<GetNotificationsResponse> | GetNotificationsResponse;
+
+  updateNotificationPayload(
+    request: UpdateNotificationPayloadRequest,
+  ):
+    | Promise<UpdateNotificationPayloadResponse>
+    | Observable<UpdateNotificationPayloadResponse>
+    | UpdateNotificationPayloadResponse;
 }
 
 export function NotificationServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["sendNotification", "readNotification", "getNotifications"];
+    const grpcMethods: string[] = [
+      "sendNotification",
+      "readNotification",
+      "getNotifications",
+      "updateNotificationPayload",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("NotificationService", method)(constructor.prototype[method], method, descriptor);
