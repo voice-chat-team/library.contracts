@@ -6,4 +6,5 @@ export const PROTO_PATHS = {
   GUILDS: join(__dirname, "../../proto/guilds.proto"),
   INVITATION: join(__dirname, "../../proto/invitation.proto"),
   NOTIFICATION: join(__dirname, "../../proto/notification.proto"),
+  MESSAGES: join(__dirname, "../../proto/messages.proto"),
 } as const;
