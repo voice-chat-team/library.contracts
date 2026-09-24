@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package voice.v1;
+
+service VoiceService {
+  rpc JoinVoiceChannel(JoinVoiceChannelRequest) returns (JoinVoiceChannelResponse);
+  rpc GetGuildVoiceParticipants(GetGuildVoiceParticipantsRequest) returns (GetGuildVoiceParticipantsResponse);
+  rpc HandleLiveKitWebhook(HandleLiveKitWebhookRequest) returns (HandleLiveKitWebhookResponse);
+}
+
+message VoiceParticipant {
+  string user_id = 1;
+  string channel_id = 2;
+  string guild_id = 3;
+  string joined_at = 4;
+}
+
+message JoinVoiceChannelRequest {
+  string user_id = 1;
+  string guild_id = 2;
+  string channel_id = 3;
+}
+
+message JoinVoiceChannelResponse {
+  string token = 1;
+  string url = 2;
+  string room = 3;
+}
+
+message GetGuildVoiceParticipantsRequest {
+  string user_id = 1;
+  string guild_id = 2;
+}
+
+message GetGuildVoiceParticipantsResponse {
+  repeated VoiceParticipant participants = 1;
+}
+
+message HandleLiveKitWebhookRequest {
+  string body = 1;
+  string auth_header = 2;
+}
+
+message HandleLiveKitWebhookResponse {
+  bool success = 1;
+}
