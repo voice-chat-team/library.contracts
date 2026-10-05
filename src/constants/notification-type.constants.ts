@@ -3,4 +3,5 @@ export const NotificationType = {
   GUILD_MEMBER_LEAVE: 1,
   NEW_INVITE_TO_GUILD: 2,
   UPDATE_NOTIFICATION: 3,
+  NEW_GUILD_MESSAGE: 4,
 } as const;
