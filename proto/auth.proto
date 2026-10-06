@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package auth.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/auth/v1;auth_v1";
+
 service AuthService {
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Registration(RegistrationRequest) returns (RegistrationResponse);

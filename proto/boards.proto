@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package boards.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/boards/v1;boards_v1";
+
 service BoardService {
   rpc GetGuildBoards(GetGuildBoardsRequest) returns (GetGuildBoardsResponse);
   rpc CreateBoard(CreateBoardRequest) returns (CreateBoardResponse);

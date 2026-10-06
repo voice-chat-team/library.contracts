@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package common.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/common/v1;common_v1";
+
 message UserProfile {
   string id = 1;
   string username = 2;

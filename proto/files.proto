@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package files.v1;
+
+option go_package = "github.com/voice-chat-team/contracts/gen/go/files/v1;files_v1";
+
+service FileService {
+  rpc CreateUpload(CreateUploadRequest) returns (CreateUploadResponse);
+  rpc ConfirmUpload(ConfirmUploadRequest) returns (ConfirmUploadResponse);
+  rpc GetFile(GetFileRequest) returns (GetFileResponse);
+  rpc GetFiles(GetFilesRequest) returns (GetFilesResponse);
+  rpc GetDownloadUrl(GetDownloadUrlRequest) returns (GetDownloadUrlResponse);
+  rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
+}
+
+enum FilePurpose {
+  FILE_PURPOSE_UNSPECIFIED = 0;
+  FILE_PURPOSE_MESSAGE_ATTACHMENT = 1;
+  FILE_PURPOSE_USER_AVATAR = 2;
+  FILE_PURPOSE_GUILD_ICON = 3;
+}
+
+enum FileStatus {
+  FILE_STATUS_UNSPECIFIED = 0;
+  FILE_STATUS_PENDING = 1;
+  FILE_STATUS_READY = 2;
+  FILE_STATUS_DELETED = 3;
+}
+
+message File {
+  string id = 1;
+  string owner_id = 2;
+  FilePurpose purpose = 3;
+  FileStatus status = 4;
+  string file_name = 5;
+  string content_type = 6;
+  int64 size_bytes = 7;
+  string public_url = 8;
+  string created_at = 9;
+}
+
+message CreateUploadRequest {
+  string user_id = 1;
+  FilePurpose purpose = 2;
+  string file_name = 3;
+  string content_type = 4;
+  int64 size_bytes = 5;
+}
+
+message CreateUploadResponse {
+  string file_id = 1;
+  string upload_url = 2;
+  map<string, string> upload_headers = 3;
+  string expires_at = 4;
+}
+
+message ConfirmUploadRequest {
+  string file_id = 1;
+  string user_id = 2;
+}
+
+message ConfirmUploadResponse {
+  File file = 1;
+}
+
+message GetFileRequest {
+  string file_id = 1;
+}
+
+message GetFileResponse {
+  File file = 1;
+}
+
+message GetFilesRequest {
+  repeated string file_ids = 1;
+}
+
+message GetFilesResponse {
+  repeated File files = 1;
+}
+
+message GetDownloadUrlRequest {
+  string file_id = 1;
+  string user_id = 2;
+}
+
+message GetDownloadUrlResponse {
+  string url = 1;
+  string expires_at = 2;
+}
+
+message DeleteFileRequest {
+  string file_id = 1;
+  string user_id = 2;
+}
+
+message DeleteFileResponse {
+  bool success = 1;
+}

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package guilds.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/guilds/v1;guilds_v1";
+
 import "common.proto";
 
 service GuildService {

@@ -9,4 +9,5 @@ export const PROTO_PATHS = {
   MESSAGES: join(__dirname, "../../proto/messages.proto"),
   VOICE: join(__dirname, "../../proto/voice.proto"),
   BOARDS: join(__dirname, "../../proto/boards.proto"),
+  FILES: join(__dirname, "../../proto/files.proto"),
 } as const;

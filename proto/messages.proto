@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package messages.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/messages/v1;messages_v1";
+
 service MessageService {
   rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
   rpc GetChannelMessages(GetChannelMessagesRequest) returns (GetChannelMessagesResponse);

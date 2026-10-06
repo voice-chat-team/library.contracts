@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package notification.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/notification/v1;notification_v1";
+
 service NotificationService {
   rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse);

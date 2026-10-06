@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package voice.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/voice/v1;voice_v1";
+
 service VoiceService {
   rpc JoinVoiceChannel(JoinVoiceChannelRequest) returns (JoinVoiceChannelResponse);
   rpc GetGuildVoiceParticipants(GetGuildVoiceParticipantsRequest) returns (GetGuildVoiceParticipantsResponse);

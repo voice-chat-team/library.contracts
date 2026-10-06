@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "generate": "protoc -I ./proto ./proto/*.proto --ts_proto_out=./gen --ts_proto_opt=nestJs=true,package=omit"
+    "generate": "protoc -I ./proto ./proto/*.proto --ts_proto_out=./gen/ts --ts_proto_opt=nestJs=true,package=omit",
+    "generate:go": "protoc -I ./proto ./proto/*.proto --go_out=./gen/go --go_opt=module=github.com/voice-chat-team/contracts/gen/go --go-grpc_out=./gen/go --go-grpc_opt=module=github.com/voice-chat-team/contracts/gen/go"
   },
   "files": [
     "dist",

@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package invitation.v1;
 
+option go_package = "github.com/voice-chat-team/contracts/gen/go/invitation/v1;invitation_v1";
+
 import "common.proto";
 
 service InvitationService {
