@@ -10,6 +10,13 @@ import { Observable } from "rxjs";
 
 export const protobufPackage = "messages.v1";
 
+export interface Attachment {
+  fileId: string;
+  fileName: string;
+  contentType: string;
+  sizeBytes: number;
+}
+
 export interface Message {
   id: string;
   channelId: string;
@@ -20,6 +27,7 @@ export interface Message {
   isDeleted: boolean;
   createdAt: string;
   updatedAt: string;
+  attachments: Attachment[];
 }
 
 export interface SendMessageRequest {
@@ -27,6 +35,7 @@ export interface SendMessageRequest {
   guildId: string;
   senderId: string;
   content: string;
+  attachmentFileIds: string[];
 }
 
 export interface SendMessageResponse {
