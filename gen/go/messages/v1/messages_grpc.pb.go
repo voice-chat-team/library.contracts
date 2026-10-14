@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MessageService_SendMessage_FullMethodName        = "/messages.v1.MessageService/SendMessage"
-	MessageService_GetChannelMessages_FullMethodName = "/messages.v1.MessageService/GetChannelMessages"
-	MessageService_UpdateMessage_FullMethodName      = "/messages.v1.MessageService/UpdateMessage"
-	MessageService_DeleteMessage_FullMethodName      = "/messages.v1.MessageService/DeleteMessage"
+	MessageService_SendMessage_FullMethodName              = "/messages.v1.MessageService/SendMessage"
+	MessageService_GetChannelMessages_FullMethodName       = "/messages.v1.MessageService/GetChannelMessages"
+	MessageService_UpdateMessage_FullMethodName            = "/messages.v1.MessageService/UpdateMessage"
+	MessageService_DeleteMessage_FullMethodName            = "/messages.v1.MessageService/DeleteMessage"
+	MessageService_GetAttachmentDownloadUrl_FullMethodName = "/messages.v1.MessageService/GetAttachmentDownloadUrl"
 )
 
 // MessageServiceClient is the client API for MessageService service.
@@ -33,6 +34,7 @@ type MessageServiceClient interface {
 	GetChannelMessages(ctx context.Context, in *GetChannelMessagesRequest, opts ...grpc.CallOption) (*GetChannelMessagesResponse, error)
 	UpdateMessage(ctx context.Context, in *UpdateMessageRequest, opts ...grpc.CallOption) (*UpdateMessageResponse, error)
 	DeleteMessage(ctx context.Context, in *DeleteMessageRequest, opts ...grpc.CallOption) (*DeleteMessageResponse, error)
+	GetAttachmentDownloadUrl(ctx context.Context, in *GetAttachmentDownloadUrlRequest, opts ...grpc.CallOption) (*GetAttachmentDownloadUrlResponse, error)
 }
 
 type messageServiceClient struct {
@@ -83,6 +85,16 @@ func (c *messageServiceClient) DeleteMessage(ctx context.Context, in *DeleteMess
 	return out, nil
 }
 
+func (c *messageServiceClient) GetAttachmentDownloadUrl(ctx context.Context, in *GetAttachmentDownloadUrlRequest, opts ...grpc.CallOption) (*GetAttachmentDownloadUrlResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAttachmentDownloadUrlResponse)
+	err := c.cc.Invoke(ctx, MessageService_GetAttachmentDownloadUrl_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MessageServiceServer is the server API for MessageService service.
 // All implementations must embed UnimplementedMessageServiceServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type MessageServiceServer interface {
 	GetChannelMessages(context.Context, *GetChannelMessagesRequest) (*GetChannelMessagesResponse, error)
 	UpdateMessage(context.Context, *UpdateMessageRequest) (*UpdateMessageResponse, error)
 	DeleteMessage(context.Context, *DeleteMessageRequest) (*DeleteMessageResponse, error)
+	GetAttachmentDownloadUrl(context.Context, *GetAttachmentDownloadUrlRequest) (*GetAttachmentDownloadUrlResponse, error)
 	mustEmbedUnimplementedMessageServiceServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedMessageServiceServer) UpdateMessage(context.Context, *UpdateM
 }
 func (UnimplementedMessageServiceServer) DeleteMessage(context.Context, *DeleteMessageRequest) (*DeleteMessageResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteMessage not implemented")
+}
+func (UnimplementedMessageServiceServer) GetAttachmentDownloadUrl(context.Context, *GetAttachmentDownloadUrlRequest) (*GetAttachmentDownloadUrlResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAttachmentDownloadUrl not implemented")
 }
 func (UnimplementedMessageServiceServer) mustEmbedUnimplementedMessageServiceServer() {}
 func (UnimplementedMessageServiceServer) testEmbeddedByValue()                        {}
@@ -206,6 +222,24 @@ func _MessageService_DeleteMessage_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MessageService_GetAttachmentDownloadUrl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAttachmentDownloadUrlRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MessageServiceServer).GetAttachmentDownloadUrl(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: MessageService_GetAttachmentDownloadUrl_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MessageServiceServer).GetAttachmentDownloadUrl(ctx, req.(*GetAttachmentDownloadUrlRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MessageService_ServiceDesc is the grpc.ServiceDesc for MessageService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,10 @@ var MessageService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteMessage",
 			Handler:    _MessageService_DeleteMessage_Handler,
+		},
+		{
+			MethodName: "GetAttachmentDownloadUrl",
+			Handler:    _MessageService_GetAttachmentDownloadUrl_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

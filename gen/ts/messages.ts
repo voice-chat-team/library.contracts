@@ -15,6 +15,7 @@ export interface Attachment {
   fileName: string;
   contentType: string;
   sizeBytes: number;
+  url: string;
 }
 
 export interface Message {
@@ -74,6 +75,16 @@ export interface DeleteMessageResponse {
   success: boolean;
 }
 
+export interface GetAttachmentDownloadUrlRequest {
+  fileId: string;
+  userId: string;
+}
+
+export interface GetAttachmentDownloadUrlResponse {
+  url: string;
+  expiresAt: string;
+}
+
 export const MESSAGES_V1_PACKAGE_NAME = "messages.v1";
 
 export interface MessageServiceClient {
@@ -84,6 +95,8 @@ export interface MessageServiceClient {
   updateMessage(request: UpdateMessageRequest): Observable<UpdateMessageResponse>;
 
   deleteMessage(request: DeleteMessageRequest): Observable<DeleteMessageResponse>;
+
+  getAttachmentDownloadUrl(request: GetAttachmentDownloadUrlRequest): Observable<GetAttachmentDownloadUrlResponse>;
 }
 
 export interface MessageServiceController {
@@ -102,11 +115,24 @@ export interface MessageServiceController {
   deleteMessage(
     request: DeleteMessageRequest,
   ): Promise<DeleteMessageResponse> | Observable<DeleteMessageResponse> | DeleteMessageResponse;
+
+  getAttachmentDownloadUrl(
+    request: GetAttachmentDownloadUrlRequest,
+  ):
+    | Promise<GetAttachmentDownloadUrlResponse>
+    | Observable<GetAttachmentDownloadUrlResponse>
+    | GetAttachmentDownloadUrlResponse;
 }
 
 export function MessageServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ["sendMessage", "getChannelMessages", "updateMessage", "deleteMessage"];
+    const grpcMethods: string[] = [
+      "sendMessage",
+      "getChannelMessages",
+      "updateMessage",
+      "deleteMessage",
+      "getAttachmentDownloadUrl",
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
       GrpcMethod("MessageService", method)(constructor.prototype[method], method, descriptor);

@@ -9,6 +9,7 @@ service MessageService {
   rpc GetChannelMessages(GetChannelMessagesRequest) returns (GetChannelMessagesResponse);
   rpc UpdateMessage(UpdateMessageRequest) returns (UpdateMessageResponse);
   rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageResponse);
+  rpc GetAttachmentDownloadUrl(GetAttachmentDownloadUrlRequest) returns (GetAttachmentDownloadUrlResponse);
 }
 
 message Attachment {
@@ -16,6 +17,7 @@ message Attachment {
   string file_name = 2;
   string content_type = 3;
   int64 size_bytes = 4;
+  string url = 5;
 }
 
 message Message {
@@ -73,4 +75,14 @@ message DeleteMessageRequest {
 
 message DeleteMessageResponse {
   bool success = 1;
+}
+
+message GetAttachmentDownloadUrlRequest {
+  string file_id = 1;
+  string user_id = 2;
+}
+
+message GetAttachmentDownloadUrlResponse {
+  string url = 1;
+  string expires_at = 2;
 }

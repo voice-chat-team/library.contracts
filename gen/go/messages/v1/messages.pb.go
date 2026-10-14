@@ -27,6 +27,7 @@ type Attachment struct {
 	FileName      string                 `protobuf:"bytes,2,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
 	ContentType   string                 `protobuf:"bytes,3,opt,name=content_type,json=contentType,proto3" json:"content_type,omitempty"`
 	SizeBytes     int64                  `protobuf:"varint,4,opt,name=size_bytes,json=sizeBytes,proto3" json:"size_bytes,omitempty"`
+	Url           string                 `protobuf:"bytes,5,opt,name=url,proto3" json:"url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -87,6 +88,13 @@ func (x *Attachment) GetSizeBytes() int64 {
 		return x.SizeBytes
 	}
 	return 0
+}
+
+func (x *Attachment) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
 }
 
 type Message struct {
@@ -653,18 +661,123 @@ func (x *DeleteMessageResponse) GetSuccess() bool {
 	return false
 }
 
+type GetAttachmentDownloadUrlRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FileId        string                 `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAttachmentDownloadUrlRequest) Reset() {
+	*x = GetAttachmentDownloadUrlRequest{}
+	mi := &file_messages_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAttachmentDownloadUrlRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAttachmentDownloadUrlRequest) ProtoMessage() {}
+
+func (x *GetAttachmentDownloadUrlRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_messages_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAttachmentDownloadUrlRequest.ProtoReflect.Descriptor instead.
+func (*GetAttachmentDownloadUrlRequest) Descriptor() ([]byte, []int) {
+	return file_messages_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetAttachmentDownloadUrlRequest) GetFileId() string {
+	if x != nil {
+		return x.FileId
+	}
+	return ""
+}
+
+func (x *GetAttachmentDownloadUrlRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type GetAttachmentDownloadUrlResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	ExpiresAt     string                 `protobuf:"bytes,2,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAttachmentDownloadUrlResponse) Reset() {
+	*x = GetAttachmentDownloadUrlResponse{}
+	mi := &file_messages_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAttachmentDownloadUrlResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAttachmentDownloadUrlResponse) ProtoMessage() {}
+
+func (x *GetAttachmentDownloadUrlResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_messages_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAttachmentDownloadUrlResponse.ProtoReflect.Descriptor instead.
+func (*GetAttachmentDownloadUrlResponse) Descriptor() ([]byte, []int) {
+	return file_messages_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetAttachmentDownloadUrlResponse) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *GetAttachmentDownloadUrlResponse) GetExpiresAt() string {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return ""
+}
+
 var File_messages_proto protoreflect.FileDescriptor
 
 const file_messages_proto_rawDesc = "" +
 	"\n" +
-	"\x0emessages.proto\x12\vmessages.v1\"\x84\x01\n" +
+	"\x0emessages.proto\x12\vmessages.v1\"\x96\x01\n" +
 	"\n" +
 	"Attachment\x12\x17\n" +
 	"\afile_id\x18\x01 \x01(\tR\x06fileId\x12\x1b\n" +
 	"\tfile_name\x18\x02 \x01(\tR\bfileName\x12!\n" +
 	"\fcontent_type\x18\x03 \x01(\tR\vcontentType\x12\x1d\n" +
 	"\n" +
-	"size_bytes\x18\x04 \x01(\x03R\tsizeBytes\"\xbf\x02\n" +
+	"size_bytes\x18\x04 \x01(\x03R\tsizeBytes\x12\x10\n" +
+	"\x03url\x18\x05 \x01(\tR\x03url\"\xbf\x02\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
 	"\n" +
@@ -713,12 +826,20 @@ const file_messages_proto_rawDesc = "" +
 	"\bguild_id\x18\x02 \x01(\tR\aguildId\x12\x17\n" +
 	"\auser_id\x18\x03 \x01(\tR\x06userId\"1\n" +
 	"\x15DeleteMessageResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess2\xf9\x02\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"S\n" +
+	"\x1fGetAttachmentDownloadUrlRequest\x12\x17\n" +
+	"\afile_id\x18\x01 \x01(\tR\x06fileId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\"S\n" +
+	" GetAttachmentDownloadUrlResponse\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18\x02 \x01(\tR\texpiresAt2\xf2\x03\n" +
 	"\x0eMessageService\x12P\n" +
 	"\vSendMessage\x12\x1f.messages.v1.SendMessageRequest\x1a .messages.v1.SendMessageResponse\x12e\n" +
 	"\x12GetChannelMessages\x12&.messages.v1.GetChannelMessagesRequest\x1a'.messages.v1.GetChannelMessagesResponse\x12V\n" +
 	"\rUpdateMessage\x12!.messages.v1.UpdateMessageRequest\x1a\".messages.v1.UpdateMessageResponse\x12V\n" +
-	"\rDeleteMessage\x12!.messages.v1.DeleteMessageRequest\x1a\".messages.v1.DeleteMessageResponseBEZCgithub.com/voice-chat-team/contracts/gen/go/messages/v1;messages_v1b\x06proto3"
+	"\rDeleteMessage\x12!.messages.v1.DeleteMessageRequest\x1a\".messages.v1.DeleteMessageResponse\x12w\n" +
+	"\x18GetAttachmentDownloadUrl\x12,.messages.v1.GetAttachmentDownloadUrlRequest\x1a-.messages.v1.GetAttachmentDownloadUrlResponseBEZCgithub.com/voice-chat-team/contracts/gen/go/messages/v1;messages_v1b\x06proto3"
 
 var (
 	file_messages_proto_rawDescOnce sync.Once
@@ -732,37 +853,41 @@ func file_messages_proto_rawDescGZIP() []byte {
 	return file_messages_proto_rawDescData
 }
 
-var file_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_messages_proto_goTypes = []any{
-	(*Attachment)(nil),                 // 0: messages.v1.Attachment
-	(*Message)(nil),                    // 1: messages.v1.Message
-	(*SendMessageRequest)(nil),         // 2: messages.v1.SendMessageRequest
-	(*SendMessageResponse)(nil),        // 3: messages.v1.SendMessageResponse
-	(*GetChannelMessagesRequest)(nil),  // 4: messages.v1.GetChannelMessagesRequest
-	(*GetChannelMessagesResponse)(nil), // 5: messages.v1.GetChannelMessagesResponse
-	(*UpdateMessageRequest)(nil),       // 6: messages.v1.UpdateMessageRequest
-	(*UpdateMessageResponse)(nil),      // 7: messages.v1.UpdateMessageResponse
-	(*DeleteMessageRequest)(nil),       // 8: messages.v1.DeleteMessageRequest
-	(*DeleteMessageResponse)(nil),      // 9: messages.v1.DeleteMessageResponse
+	(*Attachment)(nil),                       // 0: messages.v1.Attachment
+	(*Message)(nil),                          // 1: messages.v1.Message
+	(*SendMessageRequest)(nil),               // 2: messages.v1.SendMessageRequest
+	(*SendMessageResponse)(nil),              // 3: messages.v1.SendMessageResponse
+	(*GetChannelMessagesRequest)(nil),        // 4: messages.v1.GetChannelMessagesRequest
+	(*GetChannelMessagesResponse)(nil),       // 5: messages.v1.GetChannelMessagesResponse
+	(*UpdateMessageRequest)(nil),             // 6: messages.v1.UpdateMessageRequest
+	(*UpdateMessageResponse)(nil),            // 7: messages.v1.UpdateMessageResponse
+	(*DeleteMessageRequest)(nil),             // 8: messages.v1.DeleteMessageRequest
+	(*DeleteMessageResponse)(nil),            // 9: messages.v1.DeleteMessageResponse
+	(*GetAttachmentDownloadUrlRequest)(nil),  // 10: messages.v1.GetAttachmentDownloadUrlRequest
+	(*GetAttachmentDownloadUrlResponse)(nil), // 11: messages.v1.GetAttachmentDownloadUrlResponse
 }
 var file_messages_proto_depIdxs = []int32{
-	0, // 0: messages.v1.Message.attachments:type_name -> messages.v1.Attachment
-	1, // 1: messages.v1.SendMessageResponse.message:type_name -> messages.v1.Message
-	1, // 2: messages.v1.GetChannelMessagesResponse.messages:type_name -> messages.v1.Message
-	1, // 3: messages.v1.UpdateMessageResponse.message:type_name -> messages.v1.Message
-	2, // 4: messages.v1.MessageService.SendMessage:input_type -> messages.v1.SendMessageRequest
-	4, // 5: messages.v1.MessageService.GetChannelMessages:input_type -> messages.v1.GetChannelMessagesRequest
-	6, // 6: messages.v1.MessageService.UpdateMessage:input_type -> messages.v1.UpdateMessageRequest
-	8, // 7: messages.v1.MessageService.DeleteMessage:input_type -> messages.v1.DeleteMessageRequest
-	3, // 8: messages.v1.MessageService.SendMessage:output_type -> messages.v1.SendMessageResponse
-	5, // 9: messages.v1.MessageService.GetChannelMessages:output_type -> messages.v1.GetChannelMessagesResponse
-	7, // 10: messages.v1.MessageService.UpdateMessage:output_type -> messages.v1.UpdateMessageResponse
-	9, // 11: messages.v1.MessageService.DeleteMessage:output_type -> messages.v1.DeleteMessageResponse
-	8, // [8:12] is the sub-list for method output_type
-	4, // [4:8] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	0,  // 0: messages.v1.Message.attachments:type_name -> messages.v1.Attachment
+	1,  // 1: messages.v1.SendMessageResponse.message:type_name -> messages.v1.Message
+	1,  // 2: messages.v1.GetChannelMessagesResponse.messages:type_name -> messages.v1.Message
+	1,  // 3: messages.v1.UpdateMessageResponse.message:type_name -> messages.v1.Message
+	2,  // 4: messages.v1.MessageService.SendMessage:input_type -> messages.v1.SendMessageRequest
+	4,  // 5: messages.v1.MessageService.GetChannelMessages:input_type -> messages.v1.GetChannelMessagesRequest
+	6,  // 6: messages.v1.MessageService.UpdateMessage:input_type -> messages.v1.UpdateMessageRequest
+	8,  // 7: messages.v1.MessageService.DeleteMessage:input_type -> messages.v1.DeleteMessageRequest
+	10, // 8: messages.v1.MessageService.GetAttachmentDownloadUrl:input_type -> messages.v1.GetAttachmentDownloadUrlRequest
+	3,  // 9: messages.v1.MessageService.SendMessage:output_type -> messages.v1.SendMessageResponse
+	5,  // 10: messages.v1.MessageService.GetChannelMessages:output_type -> messages.v1.GetChannelMessagesResponse
+	7,  // 11: messages.v1.MessageService.UpdateMessage:output_type -> messages.v1.UpdateMessageResponse
+	9,  // 12: messages.v1.MessageService.DeleteMessage:output_type -> messages.v1.DeleteMessageResponse
+	11, // 13: messages.v1.MessageService.GetAttachmentDownloadUrl:output_type -> messages.v1.GetAttachmentDownloadUrlResponse
+	9,  // [9:14] is the sub-list for method output_type
+	4,  // [4:9] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_messages_proto_init() }
@@ -777,7 +902,7 @@ func file_messages_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_messages_proto_rawDesc), len(file_messages_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
