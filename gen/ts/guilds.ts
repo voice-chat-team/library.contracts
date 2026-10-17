@@ -35,6 +35,8 @@ export interface GuildMember {
   joinedAt: string;
   bannedAt?: string | undefined;
   user: UserProfile | undefined;
+  roleIds: string[];
+  permissions: number;
 }
 
 export interface Channel {
@@ -75,6 +77,7 @@ export interface GetGuildByIdResponse {
 
 export interface GetGuildMembersRequest {
   guildId: string;
+  userId?: string | undefined;
 }
 
 export interface GetGuildMembersResponse {
@@ -132,6 +135,7 @@ export interface CreateChannelRequest {
   name: string;
   type: ChannelType;
   isPrivate: boolean;
+  userId: string;
 }
 
 export interface CreateChannelResponse {
@@ -150,6 +154,8 @@ export interface UpdateChannelRequest {
   channelId: string;
   name?: string | undefined;
   isPrivate?: boolean | undefined;
+  userId: string;
+  guildId: string;
 }
 
 export interface UpdateChannelResponse {
@@ -159,15 +165,143 @@ export interface UpdateChannelResponse {
 export interface DeleteChannelRequest {
   channelId: string;
   guildId: string;
+  userId: string;
 }
 
 export interface DeleteChannelResponse {
   success: boolean;
 }
 
+export interface Role {
+  id: string;
+  guildId: string;
+  name: string;
+  color: string;
+  position: number;
+  permissions: number;
+  isDefault: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GetGuildRolesRequest {
+  guildId: string;
+  userId: string;
+}
+
+export interface GetGuildRolesResponse {
+  roles: Role[];
+}
+
+export interface CreateRoleRequest {
+  guildId: string;
+  userId: string;
+  name: string;
+  color?: string | undefined;
+  permissions?: number | undefined;
+}
+
+export interface CreateRoleResponse {
+  role: Role | undefined;
+}
+
+export interface UpdateRoleRequest {
+  guildId: string;
+  userId: string;
+  roleId: string;
+  name?: string | undefined;
+  color?: string | undefined;
+  permissions?: number | undefined;
+}
+
+export interface UpdateRoleResponse {
+  role: Role | undefined;
+}
+
+export interface DeleteRoleRequest {
+  guildId: string;
+  userId: string;
+  roleId: string;
+}
+
+export interface DeleteRoleResponse {
+  success: boolean;
+}
+
+export interface ReorderRolesRequest {
+  guildId: string;
+  userId: string;
+  roleIds: string[];
+}
+
+export interface ReorderRolesResponse {
+  roles: Role[];
+}
+
+export interface AddRoleMembersRequest {
+  guildId: string;
+  userId: string;
+  roleId: string;
+  targetUserIds: string[];
+}
+
+export interface AddRoleMembersResponse {
+  members: GuildMember[];
+}
+
+export interface RemoveRoleMembersRequest {
+  guildId: string;
+  userId: string;
+  roleId: string;
+  targetUserIds: string[];
+}
+
+export interface RemoveRoleMembersResponse {
+  members: GuildMember[];
+}
+
+export interface KickMemberRequest {
+  guildId: string;
+  userId: string;
+  targetUserId: string;
+}
+
+export interface KickMemberResponse {
+  success: boolean;
+}
+
+export interface UpdateGuildRequest {
+  guildId: string;
+  userId: string;
+  name?: string | undefined;
+  description?: string | undefined;
+}
+
+export interface UpdateGuildResponse {
+  guild: Guild | undefined;
+}
+
 export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 
 export interface GuildServiceClient {
+  updateGuild(request: UpdateGuildRequest): Observable<UpdateGuildResponse>;
+
+  kickMember(request: KickMemberRequest): Observable<KickMemberResponse>;
+
+  getGuildRoles(request: GetGuildRolesRequest): Observable<GetGuildRolesResponse>;
+
+  createRole(request: CreateRoleRequest): Observable<CreateRoleResponse>;
+
+  updateRole(request: UpdateRoleRequest): Observable<UpdateRoleResponse>;
+
+  deleteRole(request: DeleteRoleRequest): Observable<DeleteRoleResponse>;
+
+  reorderRoles(request: ReorderRolesRequest): Observable<ReorderRolesResponse>;
+
+  addRoleMembers(request: AddRoleMembersRequest): Observable<AddRoleMembersResponse>;
+
+  removeRoleMembers(request: RemoveRoleMembersRequest): Observable<RemoveRoleMembersResponse>;
+
   getGuildById(request: GetGuildByIdRequest): Observable<GetGuildByIdResponse>;
 
   getUserGuilds(request: GetUserGuildsRequest): Observable<GetUserGuildsResponse>;
@@ -196,6 +330,42 @@ export interface GuildServiceClient {
 }
 
 export interface GuildServiceController {
+  updateGuild(
+    request: UpdateGuildRequest,
+  ): Promise<UpdateGuildResponse> | Observable<UpdateGuildResponse> | UpdateGuildResponse;
+
+  kickMember(
+    request: KickMemberRequest,
+  ): Promise<KickMemberResponse> | Observable<KickMemberResponse> | KickMemberResponse;
+
+  getGuildRoles(
+    request: GetGuildRolesRequest,
+  ): Promise<GetGuildRolesResponse> | Observable<GetGuildRolesResponse> | GetGuildRolesResponse;
+
+  createRole(
+    request: CreateRoleRequest,
+  ): Promise<CreateRoleResponse> | Observable<CreateRoleResponse> | CreateRoleResponse;
+
+  updateRole(
+    request: UpdateRoleRequest,
+  ): Promise<UpdateRoleResponse> | Observable<UpdateRoleResponse> | UpdateRoleResponse;
+
+  deleteRole(
+    request: DeleteRoleRequest,
+  ): Promise<DeleteRoleResponse> | Observable<DeleteRoleResponse> | DeleteRoleResponse;
+
+  reorderRoles(
+    request: ReorderRolesRequest,
+  ): Promise<ReorderRolesResponse> | Observable<ReorderRolesResponse> | ReorderRolesResponse;
+
+  addRoleMembers(
+    request: AddRoleMembersRequest,
+  ): Promise<AddRoleMembersResponse> | Observable<AddRoleMembersResponse> | AddRoleMembersResponse;
+
+  removeRoleMembers(
+    request: RemoveRoleMembersRequest,
+  ): Promise<RemoveRoleMembersResponse> | Observable<RemoveRoleMembersResponse> | RemoveRoleMembersResponse;
+
   getGuildById(
     request: GetGuildByIdRequest,
   ): Promise<GetGuildByIdResponse> | Observable<GetGuildByIdResponse> | GetGuildByIdResponse;
@@ -252,6 +422,15 @@ export interface GuildServiceController {
 export function GuildServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
+      "updateGuild",
+      "kickMember",
+      "getGuildRoles",
+      "createRole",
+      "updateRole",
+      "deleteRole",
+      "reorderRoles",
+      "addRoleMembers",
+      "removeRoleMembers",
       "getGuildById",
       "getUserGuilds",
       "getGuildMembers",

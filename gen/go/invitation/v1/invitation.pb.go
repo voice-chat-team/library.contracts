@@ -75,17 +75,18 @@ func (InvitationStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type Invitation struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	GuildId       string                 `protobuf:"bytes,2,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
-	SenderId      string                 `protobuf:"bytes,3,opt,name=sender_id,json=senderId,proto3" json:"sender_id,omitempty"`
-	ReceiverId    string                 `protobuf:"bytes,4,opt,name=receiver_id,json=receiverId,proto3" json:"receiver_id,omitempty"`
-	ExpiresAt     string                 `protobuf:"bytes,5,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
-	CreatedAt     string                 `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	Status        InvitationStatus       `protobuf:"varint,7,opt,name=status,proto3,enum=invitation.v1.InvitationStatus" json:"status,omitempty"`
-	InvitedRole   v1.GuildRoles          `protobuf:"varint,8,opt,name=invited_role,json=invitedRole,proto3,enum=common.v1.GuildRoles" json:"invited_role,omitempty"`
-	ReceiverInfo  *v1.UserProfile        `protobuf:"bytes,9,opt,name=receiver_info,json=receiverInfo,proto3" json:"receiver_info,omitempty"`
-	SenderInfo    *v1.UserProfile        `protobuf:"bytes,10,opt,name=sender_info,json=senderInfo,proto3" json:"sender_info,omitempty"`
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	Id         string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	GuildId    string                 `protobuf:"bytes,2,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
+	SenderId   string                 `protobuf:"bytes,3,opt,name=sender_id,json=senderId,proto3" json:"sender_id,omitempty"`
+	ReceiverId string                 `protobuf:"bytes,4,opt,name=receiver_id,json=receiverId,proto3" json:"receiver_id,omitempty"`
+	ExpiresAt  string                 `protobuf:"bytes,5,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	CreatedAt  string                 `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Status     InvitationStatus       `protobuf:"varint,7,opt,name=status,proto3,enum=invitation.v1.InvitationStatus" json:"status,omitempty"`
+	// Deprecated: Marked as deprecated in invitation.proto.
+	InvitedRole   v1.GuildRoles   `protobuf:"varint,8,opt,name=invited_role,json=invitedRole,proto3,enum=common.v1.GuildRoles" json:"invited_role,omitempty"`
+	ReceiverInfo  *v1.UserProfile `protobuf:"bytes,9,opt,name=receiver_info,json=receiverInfo,proto3" json:"receiver_info,omitempty"`
+	SenderInfo    *v1.UserProfile `protobuf:"bytes,10,opt,name=sender_info,json=senderInfo,proto3" json:"sender_info,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -169,6 +170,7 @@ func (x *Invitation) GetStatus() InvitationStatus {
 	return InvitationStatus_PENDING
 }
 
+// Deprecated: Marked as deprecated in invitation.proto.
 func (x *Invitation) GetInvitedRole() v1.GuildRoles {
 	if x != nil {
 		return x.InvitedRole
@@ -196,9 +198,10 @@ type CreateInvitationRequest struct {
 	SenderId         string                 `protobuf:"bytes,2,opt,name=sender_id,json=senderId,proto3" json:"sender_id,omitempty"`
 	ReceiverId       *string                `protobuf:"bytes,3,opt,name=receiver_id,json=receiverId,proto3,oneof" json:"receiver_id,omitempty"`
 	ReceiverUsername *string                `protobuf:"bytes,4,opt,name=receiver_username,json=receiverUsername,proto3,oneof" json:"receiver_username,omitempty"`
-	InvitedRole      v1.GuildRoles          `protobuf:"varint,5,opt,name=invited_role,json=invitedRole,proto3,enum=common.v1.GuildRoles" json:"invited_role,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	// Deprecated: Marked as deprecated in invitation.proto.
+	InvitedRole   v1.GuildRoles `protobuf:"varint,5,opt,name=invited_role,json=invitedRole,proto3,enum=common.v1.GuildRoles" json:"invited_role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateInvitationRequest) Reset() {
@@ -259,6 +262,7 @@ func (x *CreateInvitationRequest) GetReceiverUsername() string {
 	return ""
 }
 
+// Deprecated: Marked as deprecated in invitation.proto.
 func (x *CreateInvitationRequest) GetInvitedRole() v1.GuildRoles {
 	if x != nil {
 		return x.InvitedRole
@@ -648,7 +652,7 @@ var File_invitation_proto protoreflect.FileDescriptor
 
 const file_invitation_proto_rawDesc = "" +
 	"\n" +
-	"\x10invitation.proto\x12\rinvitation.v1\x1a\fcommon.proto\"\x9c\x03\n" +
+	"\x10invitation.proto\x12\rinvitation.v1\x1a\fcommon.proto\"\xa0\x03\n" +
 	"\n" +
 	"Invitation\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
@@ -660,19 +664,19 @@ const file_invitation_proto_rawDesc = "" +
 	"expires_at\x18\x05 \x01(\tR\texpiresAt\x12\x1d\n" +
 	"\n" +
 	"created_at\x18\x06 \x01(\tR\tcreatedAt\x127\n" +
-	"\x06status\x18\a \x01(\x0e2\x1f.invitation.v1.InvitationStatusR\x06status\x128\n" +
-	"\finvited_role\x18\b \x01(\x0e2\x15.common.v1.GuildRolesR\vinvitedRole\x12;\n" +
+	"\x06status\x18\a \x01(\x0e2\x1f.invitation.v1.InvitationStatusR\x06status\x12<\n" +
+	"\finvited_role\x18\b \x01(\x0e2\x15.common.v1.GuildRolesB\x02\x18\x01R\vinvitedRole\x12;\n" +
 	"\rreceiver_info\x18\t \x01(\v2\x16.common.v1.UserProfileR\freceiverInfo\x127\n" +
 	"\vsender_info\x18\n" +
 	" \x01(\v2\x16.common.v1.UserProfileR\n" +
-	"senderInfo\"\x89\x02\n" +
+	"senderInfo\"\x8d\x02\n" +
 	"\x17CreateInvitationRequest\x12\x19\n" +
 	"\bguild_id\x18\x01 \x01(\tR\aguildId\x12\x1b\n" +
 	"\tsender_id\x18\x02 \x01(\tR\bsenderId\x12$\n" +
 	"\vreceiver_id\x18\x03 \x01(\tH\x00R\n" +
 	"receiverId\x88\x01\x01\x120\n" +
-	"\x11receiver_username\x18\x04 \x01(\tH\x01R\x10receiverUsername\x88\x01\x01\x128\n" +
-	"\finvited_role\x18\x05 \x01(\x0e2\x15.common.v1.GuildRolesR\vinvitedRoleB\x0e\n" +
+	"\x11receiver_username\x18\x04 \x01(\tH\x01R\x10receiverUsername\x88\x01\x01\x12<\n" +
+	"\finvited_role\x18\x05 \x01(\x0e2\x15.common.v1.GuildRolesB\x02\x18\x01R\vinvitedRoleB\x0e\n" +
 	"\f_receiver_idB\x14\n" +
 	"\x12_receiver_username\"U\n" +
 	"\x18CreateInvitationResponse\x129\n" +

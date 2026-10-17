@@ -28,7 +28,7 @@ message Invitation {
   string expires_at = 5;
   string created_at = 6;
   InvitationStatus status = 7;
-  common.v1.GuildRoles invited_role = 8;
+  common.v1.GuildRoles invited_role = 8 [deprecated = true];
   common.v1.UserProfile receiver_info = 9;
   common.v1.UserProfile sender_info = 10;
 }
@@ -38,7 +38,7 @@ message CreateInvitationRequest {
   string sender_id = 2;
   optional string receiver_id = 3;
   optional string receiver_username = 4;
-  common.v1.GuildRoles invited_role = 5;
+  common.v1.GuildRoles invited_role = 5 [deprecated = true];
 }
 
 message CreateInvitationResponse {

@@ -27,6 +27,7 @@ export interface Invitation {
   expiresAt: string;
   createdAt: string;
   status: InvitationStatus;
+  /** @deprecated */
   invitedRole: GuildRoles;
   receiverInfo: UserProfile | undefined;
   senderInfo: UserProfile | undefined;
@@ -36,7 +37,10 @@ export interface CreateInvitationRequest {
   guildId: string;
   senderId: string;
   receiverId?: string | undefined;
-  receiverUsername?: string | undefined;
+  receiverUsername?:
+    | string
+    | undefined;
+  /** @deprecated */
   invitedRole: GuildRoles;
 }
 
