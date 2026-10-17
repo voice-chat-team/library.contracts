@@ -48,6 +48,7 @@ export interface GetChannelMessagesRequest {
   guildId: string;
   beforeMessageId?: string | undefined;
   limit: number;
+  userId: string;
 }
 
 export interface GetChannelMessagesResponse {

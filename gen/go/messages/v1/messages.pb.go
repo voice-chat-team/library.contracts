@@ -339,6 +339,7 @@ type GetChannelMessagesRequest struct {
 	GuildId         string                 `protobuf:"bytes,2,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
 	BeforeMessageId *string                `protobuf:"bytes,3,opt,name=before_message_id,json=beforeMessageId,proto3,oneof" json:"before_message_id,omitempty"`
 	Limit           int32                  `protobuf:"varint,4,opt,name=limit,proto3" json:"limit,omitempty"`
+	UserId          string                 `protobuf:"bytes,5,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -399,6 +400,13 @@ func (x *GetChannelMessagesRequest) GetLimit() int32 {
 		return x.Limit
 	}
 	return 0
+}
+
+func (x *GetChannelMessagesRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
 }
 
 type GetChannelMessagesResponse struct {
@@ -802,13 +810,14 @@ const file_messages_proto_rawDesc = "" +
 	"\acontent\x18\x04 \x01(\tR\acontent\x12.\n" +
 	"\x13attachment_file_ids\x18\x05 \x03(\tR\x11attachmentFileIds\"E\n" +
 	"\x13SendMessageResponse\x12.\n" +
-	"\amessage\x18\x01 \x01(\v2\x14.messages.v1.MessageR\amessage\"\xb2\x01\n" +
+	"\amessage\x18\x01 \x01(\v2\x14.messages.v1.MessageR\amessage\"\xcb\x01\n" +
 	"\x19GetChannelMessagesRequest\x12\x1d\n" +
 	"\n" +
 	"channel_id\x18\x01 \x01(\tR\tchannelId\x12\x19\n" +
 	"\bguild_id\x18\x02 \x01(\tR\aguildId\x12/\n" +
 	"\x11before_message_id\x18\x03 \x01(\tH\x00R\x0fbeforeMessageId\x88\x01\x01\x12\x14\n" +
-	"\x05limit\x18\x04 \x01(\x05R\x05limitB\x14\n" +
+	"\x05limit\x18\x04 \x01(\x05R\x05limit\x12\x17\n" +
+	"\auser_id\x18\x05 \x01(\tR\x06userIdB\x14\n" +
 	"\x12_before_message_id\"N\n" +
 	"\x1aGetChannelMessagesResponse\x120\n" +
 	"\bmessages\x18\x01 \x03(\v2\x14.messages.v1.MessageR\bmessages\"\x83\x01\n" +

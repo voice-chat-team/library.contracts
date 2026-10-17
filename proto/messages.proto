@@ -50,6 +50,7 @@ message GetChannelMessagesRequest {
   string guild_id = 2;
   optional string before_message_id = 3;
   int32 limit = 4;
+  string user_id = 5;
 }
 
 message GetChannelMessagesResponse {
