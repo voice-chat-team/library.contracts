@@ -15,6 +15,8 @@ export const Permission = {
   VOICE_MUTE_MEMBERS: 1 << 9,
   CREATE_BOARDS: 1 << 10,
   DELETE_BOARDS: 1 << 11,
+  TEXT_CHANNEL_CREATE: 1 << 12,
+  VOICE_CHANNEL_CREATE: 1 << 13,
 } as const;
 
 export type PermissionKey = keyof typeof Permission;
@@ -26,13 +28,12 @@ export const ALL_PERMISSIONS = PERMISSION_KEYS.reduce(
   0,
 );
 
-/** Права @everyone в новой гильдии и при миграции существующих. */
+/** Права @everyone в новой гильдии. */
 export const DEFAULT_EVERYONE_PERMISSIONS =
   Permission.SEND_MESSAGES |
   Permission.ATTACH_FILES |
   Permission.VOICE_CONNECT |
-  Permission.VOICE_SPEAK |
-  Permission.CREATE_BOARDS;
+  Permission.VOICE_SPEAK;
 
 export const hasPermission = (mask: number, permission: number): boolean =>
   (mask & permission) === permission;
