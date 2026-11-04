@@ -47,6 +47,10 @@ export interface Channel {
   isPrivate: boolean;
   createdAt: string;
   updatedAt: string;
+  /** 0 = unlimited */
+  capacity: number;
+  allowedRoleIds: string[];
+  allowedUserIds: string[];
 }
 
 export interface JoinUserToGuildRequest {
@@ -144,6 +148,7 @@ export interface CreateChannelResponse {
 
 export interface GetGuildChannelsRequest {
   guildId: string;
+  userId?: string | undefined;
 }
 
 export interface GetGuildChannelsResponse {
@@ -156,6 +161,22 @@ export interface UpdateChannelRequest {
   isPrivate?: boolean | undefined;
   userId: string;
   guildId: string;
+  capacity?: number | undefined;
+  access?: ChannelAccess | undefined;
+}
+
+export interface ChannelAccess {
+  roleIds: string[];
+  userIds: string[];
+}
+
+export interface GetChannelRecipientsRequest {
+  guildId: string;
+  channelId: string;
+}
+
+export interface GetChannelRecipientsResponse {
+  userIds: string[];
 }
 
 export interface UpdateChannelResponse {
@@ -281,6 +302,33 @@ export interface UpdateGuildResponse {
   guild: Guild | undefined;
 }
 
+export interface ReserveVoiceSlotRequest {
+  guildId: string;
+  channelId: string;
+  userId: string;
+}
+
+export interface SyncVoiceSlotsRequest {
+  guildId: string;
+  channelId: string;
+  userIds: string[];
+}
+
+export interface GetReservedVoiceChannelsRequest {
+}
+
+export interface ReserveVoiceSlotResponse {
+  channel: Channel | undefined;
+}
+
+export interface GetReservedVoiceChannelsResponse {
+  channels: Channel[];
+}
+
+export interface SyncVoiceSlotsResponse {
+  userIds: string[];
+}
+
 export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 
 export interface GuildServiceClient {
@@ -321,6 +369,14 @@ export interface GuildServiceClient {
   getGuildChannels(request: GetGuildChannelsRequest): Observable<GetGuildChannelsResponse>;
 
   updateChannel(request: UpdateChannelRequest): Observable<UpdateChannelResponse>;
+
+  getChannelRecipients(request: GetChannelRecipientsRequest): Observable<GetChannelRecipientsResponse>;
+
+  reserveVoiceSlot(request: ReserveVoiceSlotRequest): Observable<ReserveVoiceSlotResponse>;
+
+  getReservedVoiceChannels(request: GetReservedVoiceChannelsRequest): Observable<GetReservedVoiceChannelsResponse>;
+
+  syncVoiceSlots(request: SyncVoiceSlotsRequest): Observable<SyncVoiceSlotsResponse>;
 
   deleteChannel(request: DeleteChannelRequest): Observable<DeleteChannelResponse>;
 
@@ -406,6 +462,25 @@ export interface GuildServiceController {
     request: UpdateChannelRequest,
   ): Promise<UpdateChannelResponse> | Observable<UpdateChannelResponse> | UpdateChannelResponse;
 
+  getChannelRecipients(
+    request: GetChannelRecipientsRequest,
+  ): Promise<GetChannelRecipientsResponse> | Observable<GetChannelRecipientsResponse> | GetChannelRecipientsResponse;
+
+  reserveVoiceSlot(
+    request: ReserveVoiceSlotRequest,
+  ): Promise<ReserveVoiceSlotResponse> | Observable<ReserveVoiceSlotResponse> | ReserveVoiceSlotResponse;
+
+  getReservedVoiceChannels(
+    request: GetReservedVoiceChannelsRequest,
+  ):
+    | Promise<GetReservedVoiceChannelsResponse>
+    | Observable<GetReservedVoiceChannelsResponse>
+    | GetReservedVoiceChannelsResponse;
+
+  syncVoiceSlots(
+    request: SyncVoiceSlotsRequest,
+  ): Promise<SyncVoiceSlotsResponse> | Observable<SyncVoiceSlotsResponse> | SyncVoiceSlotsResponse;
+
   deleteChannel(
     request: DeleteChannelRequest,
   ): Promise<DeleteChannelResponse> | Observable<DeleteChannelResponse> | DeleteChannelResponse;
@@ -441,6 +516,10 @@ export function GuildServiceControllerMethods() {
       "createChannel",
       "getGuildChannels",
       "updateChannel",
+      "getChannelRecipients",
+      "reserveVoiceSlot",
+      "getReservedVoiceChannels",
+      "syncVoiceSlots",
       "deleteChannel",
       "joinUserToGuild",
       "leaveUserFromGuild",

@@ -30,6 +30,10 @@ service GuildService {
   rpc CreateChannel(CreateChannelRequest) returns (CreateChannelResponse);
   rpc GetGuildChannels(GetGuildChannelsRequest) returns (GetGuildChannelsResponse);
   rpc UpdateChannel(UpdateChannelRequest) returns (UpdateChannelResponse);
+  rpc GetChannelRecipients(GetChannelRecipientsRequest) returns (GetChannelRecipientsResponse);
+  rpc ReserveVoiceSlot(ReserveVoiceSlotRequest) returns (ReserveVoiceSlotResponse);
+  rpc GetReservedVoiceChannels(GetReservedVoiceChannelsRequest) returns (GetReservedVoiceChannelsResponse);
+  rpc SyncVoiceSlots(SyncVoiceSlotsRequest) returns (SyncVoiceSlotsResponse);
   rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelResponse);
 
   rpc JoinUserToGuild(JoinUserToGuildRequest) returns (JoinUserToGuildResponse);
@@ -66,6 +70,9 @@ message Channel {
   bool is_private = 5;
   string created_at = 6;
   string updated_at = 7;
+  int32 capacity = 8; // 0 = unlimited
+  repeated string allowed_role_ids = 9;
+  repeated string allowed_user_ids = 10;
 }
 
 enum ChannelType {
@@ -168,6 +175,7 @@ message CreateChannelResponse {
 
 message GetGuildChannelsRequest {
   string guild_id = 1;
+  optional string user_id = 2;
 }
 
 message GetGuildChannelsResponse {
@@ -180,6 +188,20 @@ message UpdateChannelRequest {
   optional bool is_private = 3;
   string user_id = 4;
   string guild_id = 5;
+  optional int32 capacity = 6;
+  optional ChannelAccess access = 7;
+}
+
+message ChannelAccess {
+  repeated string role_ids = 1;
+  repeated string user_ids = 2;
+}
+message GetChannelRecipientsRequest {
+  string guild_id = 1;
+  string channel_id = 2;
+}
+message GetChannelRecipientsResponse {
+  repeated string user_ids = 1;
 }
 
 message UpdateChannelResponse {
@@ -298,4 +320,29 @@ message UpdateGuildRequest {
 }
 message UpdateGuildResponse {
   Guild guild = 1;
+}
+
+message ReserveVoiceSlotRequest {
+ string guild_id = 1;
+ string channel_id = 2;
+ string user_id = 3;
+}
+message SyncVoiceSlotsRequest {
+ string guild_id = 1;
+ string channel_id = 2;
+ repeated string user_ids = 3;
+}
+
+message GetReservedVoiceChannelsRequest {}
+
+message ReserveVoiceSlotResponse {
+  Channel channel = 1;
+}
+
+message GetReservedVoiceChannelsResponse {
+  repeated Channel channels = 1;
+}
+
+message SyncVoiceSlotsResponse {
+  repeated string user_ids = 1;
 }
