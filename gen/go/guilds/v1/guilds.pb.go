@@ -2952,294 +2952,6 @@ func (x *UpdateGuildResponse) GetGuild() *Guild {
 	return nil
 }
 
-type ReserveVoiceSlotRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	GuildId       string                 `protobuf:"bytes,1,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
-	ChannelId     string                 `protobuf:"bytes,2,opt,name=channel_id,json=channelId,proto3" json:"channel_id,omitempty"`
-	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ReserveVoiceSlotRequest) Reset() {
-	*x = ReserveVoiceSlotRequest{}
-	mi := &file_guilds_proto_msgTypes[51]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ReserveVoiceSlotRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ReserveVoiceSlotRequest) ProtoMessage() {}
-
-func (x *ReserveVoiceSlotRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_guilds_proto_msgTypes[51]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ReserveVoiceSlotRequest.ProtoReflect.Descriptor instead.
-func (*ReserveVoiceSlotRequest) Descriptor() ([]byte, []int) {
-	return file_guilds_proto_rawDescGZIP(), []int{51}
-}
-
-func (x *ReserveVoiceSlotRequest) GetGuildId() string {
-	if x != nil {
-		return x.GuildId
-	}
-	return ""
-}
-
-func (x *ReserveVoiceSlotRequest) GetChannelId() string {
-	if x != nil {
-		return x.ChannelId
-	}
-	return ""
-}
-
-func (x *ReserveVoiceSlotRequest) GetUserId() string {
-	if x != nil {
-		return x.UserId
-	}
-	return ""
-}
-
-type SyncVoiceSlotsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	GuildId       string                 `protobuf:"bytes,1,opt,name=guild_id,json=guildId,proto3" json:"guild_id,omitempty"`
-	ChannelId     string                 `protobuf:"bytes,2,opt,name=channel_id,json=channelId,proto3" json:"channel_id,omitempty"`
-	UserIds       []string               `protobuf:"bytes,3,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *SyncVoiceSlotsRequest) Reset() {
-	*x = SyncVoiceSlotsRequest{}
-	mi := &file_guilds_proto_msgTypes[52]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *SyncVoiceSlotsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SyncVoiceSlotsRequest) ProtoMessage() {}
-
-func (x *SyncVoiceSlotsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_guilds_proto_msgTypes[52]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SyncVoiceSlotsRequest.ProtoReflect.Descriptor instead.
-func (*SyncVoiceSlotsRequest) Descriptor() ([]byte, []int) {
-	return file_guilds_proto_rawDescGZIP(), []int{52}
-}
-
-func (x *SyncVoiceSlotsRequest) GetGuildId() string {
-	if x != nil {
-		return x.GuildId
-	}
-	return ""
-}
-
-func (x *SyncVoiceSlotsRequest) GetChannelId() string {
-	if x != nil {
-		return x.ChannelId
-	}
-	return ""
-}
-
-func (x *SyncVoiceSlotsRequest) GetUserIds() []string {
-	if x != nil {
-		return x.UserIds
-	}
-	return nil
-}
-
-type GetReservedVoiceChannelsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetReservedVoiceChannelsRequest) Reset() {
-	*x = GetReservedVoiceChannelsRequest{}
-	mi := &file_guilds_proto_msgTypes[53]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetReservedVoiceChannelsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetReservedVoiceChannelsRequest) ProtoMessage() {}
-
-func (x *GetReservedVoiceChannelsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_guilds_proto_msgTypes[53]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetReservedVoiceChannelsRequest.ProtoReflect.Descriptor instead.
-func (*GetReservedVoiceChannelsRequest) Descriptor() ([]byte, []int) {
-	return file_guilds_proto_rawDescGZIP(), []int{53}
-}
-
-type ReserveVoiceSlotResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Channel       *Channel               `protobuf:"bytes,1,opt,name=channel,proto3" json:"channel,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ReserveVoiceSlotResponse) Reset() {
-	*x = ReserveVoiceSlotResponse{}
-	mi := &file_guilds_proto_msgTypes[54]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ReserveVoiceSlotResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ReserveVoiceSlotResponse) ProtoMessage() {}
-
-func (x *ReserveVoiceSlotResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_guilds_proto_msgTypes[54]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ReserveVoiceSlotResponse.ProtoReflect.Descriptor instead.
-func (*ReserveVoiceSlotResponse) Descriptor() ([]byte, []int) {
-	return file_guilds_proto_rawDescGZIP(), []int{54}
-}
-
-func (x *ReserveVoiceSlotResponse) GetChannel() *Channel {
-	if x != nil {
-		return x.Channel
-	}
-	return nil
-}
-
-type GetReservedVoiceChannelsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Channels      []*Channel             `protobuf:"bytes,1,rep,name=channels,proto3" json:"channels,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetReservedVoiceChannelsResponse) Reset() {
-	*x = GetReservedVoiceChannelsResponse{}
-	mi := &file_guilds_proto_msgTypes[55]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetReservedVoiceChannelsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetReservedVoiceChannelsResponse) ProtoMessage() {}
-
-func (x *GetReservedVoiceChannelsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_guilds_proto_msgTypes[55]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetReservedVoiceChannelsResponse.ProtoReflect.Descriptor instead.
-func (*GetReservedVoiceChannelsResponse) Descriptor() ([]byte, []int) {
-	return file_guilds_proto_rawDescGZIP(), []int{55}
-}
-
-func (x *GetReservedVoiceChannelsResponse) GetChannels() []*Channel {
-	if x != nil {
-		return x.Channels
-	}
-	return nil
-}
-
-type SyncVoiceSlotsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserIds       []string               `protobuf:"bytes,1,rep,name=user_ids,json=userIds,proto3" json:"user_ids,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *SyncVoiceSlotsResponse) Reset() {
-	*x = SyncVoiceSlotsResponse{}
-	mi := &file_guilds_proto_msgTypes[56]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *SyncVoiceSlotsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SyncVoiceSlotsResponse) ProtoMessage() {}
-
-func (x *SyncVoiceSlotsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_guilds_proto_msgTypes[56]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SyncVoiceSlotsResponse.ProtoReflect.Descriptor instead.
-func (*SyncVoiceSlotsResponse) Descriptor() ([]byte, []int) {
-	return file_guilds_proto_rawDescGZIP(), []int{56}
-}
-
-func (x *SyncVoiceSlotsResponse) GetUserIds() []string {
-	if x != nil {
-		return x.UserIds
-	}
-	return nil
-}
-
 var File_guilds_proto protoreflect.FileDescriptor
 
 const file_guilds_proto_rawDesc = "" +
@@ -3463,27 +3175,10 @@ const file_guilds_proto_rawDesc = "" +
 	"\x05_nameB\x0e\n" +
 	"\f_description\"=\n" +
 	"\x13UpdateGuildResponse\x12&\n" +
-	"\x05guild\x18\x01 \x01(\v2\x10.guilds.v1.GuildR\x05guild\"l\n" +
-	"\x17ReserveVoiceSlotRequest\x12\x19\n" +
-	"\bguild_id\x18\x01 \x01(\tR\aguildId\x12\x1d\n" +
-	"\n" +
-	"channel_id\x18\x02 \x01(\tR\tchannelId\x12\x17\n" +
-	"\auser_id\x18\x03 \x01(\tR\x06userId\"l\n" +
-	"\x15SyncVoiceSlotsRequest\x12\x19\n" +
-	"\bguild_id\x18\x01 \x01(\tR\aguildId\x12\x1d\n" +
-	"\n" +
-	"channel_id\x18\x02 \x01(\tR\tchannelId\x12\x19\n" +
-	"\buser_ids\x18\x03 \x03(\tR\auserIds\"!\n" +
-	"\x1fGetReservedVoiceChannelsRequest\"H\n" +
-	"\x18ReserveVoiceSlotResponse\x12,\n" +
-	"\achannel\x18\x01 \x01(\v2\x12.guilds.v1.ChannelR\achannel\"R\n" +
-	" GetReservedVoiceChannelsResponse\x12.\n" +
-	"\bchannels\x18\x01 \x03(\v2\x12.guilds.v1.ChannelR\bchannels\"3\n" +
-	"\x16SyncVoiceSlotsResponse\x12\x19\n" +
-	"\buser_ids\x18\x01 \x03(\tR\auserIds*\"\n" +
+	"\x05guild\x18\x01 \x01(\v2\x10.guilds.v1.GuildR\x05guild*\"\n" +
 	"\vChannelType\x12\b\n" +
 	"\x04TEXT\x10\x00\x12\t\n" +
-	"\x05VOICE\x10\x012\xc9\x11\n" +
+	"\x05VOICE\x10\x012\xa0\x0f\n" +
 	"\fGuildService\x12L\n" +
 	"\vUpdateGuild\x12\x1d.guilds.v1.UpdateGuildRequest\x1a\x1e.guilds.v1.UpdateGuildResponse\x12I\n" +
 	"\n" +
@@ -3508,10 +3203,7 @@ const file_guilds_proto_rawDesc = "" +
 	"\rCreateChannel\x12\x1f.guilds.v1.CreateChannelRequest\x1a .guilds.v1.CreateChannelResponse\x12[\n" +
 	"\x10GetGuildChannels\x12\".guilds.v1.GetGuildChannelsRequest\x1a#.guilds.v1.GetGuildChannelsResponse\x12R\n" +
 	"\rUpdateChannel\x12\x1f.guilds.v1.UpdateChannelRequest\x1a .guilds.v1.UpdateChannelResponse\x12g\n" +
-	"\x14GetChannelRecipients\x12&.guilds.v1.GetChannelRecipientsRequest\x1a'.guilds.v1.GetChannelRecipientsResponse\x12[\n" +
-	"\x10ReserveVoiceSlot\x12\".guilds.v1.ReserveVoiceSlotRequest\x1a#.guilds.v1.ReserveVoiceSlotResponse\x12s\n" +
-	"\x18GetReservedVoiceChannels\x12*.guilds.v1.GetReservedVoiceChannelsRequest\x1a+.guilds.v1.GetReservedVoiceChannelsResponse\x12U\n" +
-	"\x0eSyncVoiceSlots\x12 .guilds.v1.SyncVoiceSlotsRequest\x1a!.guilds.v1.SyncVoiceSlotsResponse\x12R\n" +
+	"\x14GetChannelRecipients\x12&.guilds.v1.GetChannelRecipientsRequest\x1a'.guilds.v1.GetChannelRecipientsResponse\x12R\n" +
 	"\rDeleteChannel\x12\x1f.guilds.v1.DeleteChannelRequest\x1a .guilds.v1.DeleteChannelResponse\x12X\n" +
 	"\x0fJoinUserToGuild\x12!.guilds.v1.JoinUserToGuildRequest\x1a\".guilds.v1.JoinUserToGuildResponse\x12a\n" +
 	"\x12LeaveUserFromGuild\x12$.guilds.v1.LeaveUserFromGuildRequest\x1a%.guilds.v1.LeaveUserFromGuildResponseBAZ?github.com/voice-chat-team/contracts/gen/go/guilds/v1;guilds_v1b\x06proto3"
@@ -3529,70 +3221,64 @@ func file_guilds_proto_rawDescGZIP() []byte {
 }
 
 var file_guilds_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_guilds_proto_msgTypes = make([]protoimpl.MessageInfo, 57)
+var file_guilds_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
 var file_guilds_proto_goTypes = []any{
-	(ChannelType)(0),                         // 0: guilds.v1.ChannelType
-	(*Guild)(nil),                            // 1: guilds.v1.Guild
-	(*GuildMember)(nil),                      // 2: guilds.v1.GuildMember
-	(*Channel)(nil),                          // 3: guilds.v1.Channel
-	(*JoinUserToGuildRequest)(nil),           // 4: guilds.v1.JoinUserToGuildRequest
-	(*JoinUserToGuildResponse)(nil),          // 5: guilds.v1.JoinUserToGuildResponse
-	(*LeaveUserFromGuildRequest)(nil),        // 6: guilds.v1.LeaveUserFromGuildRequest
-	(*LeaveUserFromGuildResponse)(nil),       // 7: guilds.v1.LeaveUserFromGuildResponse
-	(*GetGuildByIdRequest)(nil),              // 8: guilds.v1.GetGuildByIdRequest
-	(*GetGuildByIdResponse)(nil),             // 9: guilds.v1.GetGuildByIdResponse
-	(*GetGuildMembersRequest)(nil),           // 10: guilds.v1.GetGuildMembersRequest
-	(*GetGuildMembersResponse)(nil),          // 11: guilds.v1.GetGuildMembersResponse
-	(*CreateGuildRequest)(nil),               // 12: guilds.v1.CreateGuildRequest
-	(*CreateGuildResponse)(nil),              // 13: guilds.v1.CreateGuildResponse
-	(*GetUserGuildsRequest)(nil),             // 14: guilds.v1.GetUserGuildsRequest
-	(*GetMemberByIdResponse)(nil),            // 15: guilds.v1.GetMemberByIdResponse
-	(*GetMemberByIdRequest)(nil),             // 16: guilds.v1.GetMemberByIdRequest
-	(*GetUserGuildsResponse)(nil),            // 17: guilds.v1.GetUserGuildsResponse
-	(*RemoveGuildRequest)(nil),               // 18: guilds.v1.RemoveGuildRequest
-	(*RemoveGuildResponse)(nil),              // 19: guilds.v1.RemoveGuildResponse
-	(*DeleteGuildRequest)(nil),               // 20: guilds.v1.DeleteGuildRequest
-	(*DeleteGuildResponse)(nil),              // 21: guilds.v1.DeleteGuildResponse
-	(*CreateChannelRequest)(nil),             // 22: guilds.v1.CreateChannelRequest
-	(*CreateChannelResponse)(nil),            // 23: guilds.v1.CreateChannelResponse
-	(*GetGuildChannelsRequest)(nil),          // 24: guilds.v1.GetGuildChannelsRequest
-	(*GetGuildChannelsResponse)(nil),         // 25: guilds.v1.GetGuildChannelsResponse
-	(*UpdateChannelRequest)(nil),             // 26: guilds.v1.UpdateChannelRequest
-	(*ChannelAccess)(nil),                    // 27: guilds.v1.ChannelAccess
-	(*GetChannelRecipientsRequest)(nil),      // 28: guilds.v1.GetChannelRecipientsRequest
-	(*GetChannelRecipientsResponse)(nil),     // 29: guilds.v1.GetChannelRecipientsResponse
-	(*UpdateChannelResponse)(nil),            // 30: guilds.v1.UpdateChannelResponse
-	(*DeleteChannelRequest)(nil),             // 31: guilds.v1.DeleteChannelRequest
-	(*DeleteChannelResponse)(nil),            // 32: guilds.v1.DeleteChannelResponse
-	(*Role)(nil),                             // 33: guilds.v1.Role
-	(*GetGuildRolesRequest)(nil),             // 34: guilds.v1.GetGuildRolesRequest
-	(*GetGuildRolesResponse)(nil),            // 35: guilds.v1.GetGuildRolesResponse
-	(*CreateRoleRequest)(nil),                // 36: guilds.v1.CreateRoleRequest
-	(*CreateRoleResponse)(nil),               // 37: guilds.v1.CreateRoleResponse
-	(*UpdateRoleRequest)(nil),                // 38: guilds.v1.UpdateRoleRequest
-	(*UpdateRoleResponse)(nil),               // 39: guilds.v1.UpdateRoleResponse
-	(*DeleteRoleRequest)(nil),                // 40: guilds.v1.DeleteRoleRequest
-	(*DeleteRoleResponse)(nil),               // 41: guilds.v1.DeleteRoleResponse
-	(*ReorderRolesRequest)(nil),              // 42: guilds.v1.ReorderRolesRequest
-	(*ReorderRolesResponse)(nil),             // 43: guilds.v1.ReorderRolesResponse
-	(*AddRoleMembersRequest)(nil),            // 44: guilds.v1.AddRoleMembersRequest
-	(*AddRoleMembersResponse)(nil),           // 45: guilds.v1.AddRoleMembersResponse
-	(*RemoveRoleMembersRequest)(nil),         // 46: guilds.v1.RemoveRoleMembersRequest
-	(*RemoveRoleMembersResponse)(nil),        // 47: guilds.v1.RemoveRoleMembersResponse
-	(*KickMemberRequest)(nil),                // 48: guilds.v1.KickMemberRequest
-	(*KickMemberResponse)(nil),               // 49: guilds.v1.KickMemberResponse
-	(*UpdateGuildRequest)(nil),               // 50: guilds.v1.UpdateGuildRequest
-	(*UpdateGuildResponse)(nil),              // 51: guilds.v1.UpdateGuildResponse
-	(*ReserveVoiceSlotRequest)(nil),          // 52: guilds.v1.ReserveVoiceSlotRequest
-	(*SyncVoiceSlotsRequest)(nil),            // 53: guilds.v1.SyncVoiceSlotsRequest
-	(*GetReservedVoiceChannelsRequest)(nil),  // 54: guilds.v1.GetReservedVoiceChannelsRequest
-	(*ReserveVoiceSlotResponse)(nil),         // 55: guilds.v1.ReserveVoiceSlotResponse
-	(*GetReservedVoiceChannelsResponse)(nil), // 56: guilds.v1.GetReservedVoiceChannelsResponse
-	(*SyncVoiceSlotsResponse)(nil),           // 57: guilds.v1.SyncVoiceSlotsResponse
-	(*v1.UserProfile)(nil),                   // 58: common.v1.UserProfile
+	(ChannelType)(0),                     // 0: guilds.v1.ChannelType
+	(*Guild)(nil),                        // 1: guilds.v1.Guild
+	(*GuildMember)(nil),                  // 2: guilds.v1.GuildMember
+	(*Channel)(nil),                      // 3: guilds.v1.Channel
+	(*JoinUserToGuildRequest)(nil),       // 4: guilds.v1.JoinUserToGuildRequest
+	(*JoinUserToGuildResponse)(nil),      // 5: guilds.v1.JoinUserToGuildResponse
+	(*LeaveUserFromGuildRequest)(nil),    // 6: guilds.v1.LeaveUserFromGuildRequest
+	(*LeaveUserFromGuildResponse)(nil),   // 7: guilds.v1.LeaveUserFromGuildResponse
+	(*GetGuildByIdRequest)(nil),          // 8: guilds.v1.GetGuildByIdRequest
+	(*GetGuildByIdResponse)(nil),         // 9: guilds.v1.GetGuildByIdResponse
+	(*GetGuildMembersRequest)(nil),       // 10: guilds.v1.GetGuildMembersRequest
+	(*GetGuildMembersResponse)(nil),      // 11: guilds.v1.GetGuildMembersResponse
+	(*CreateGuildRequest)(nil),           // 12: guilds.v1.CreateGuildRequest
+	(*CreateGuildResponse)(nil),          // 13: guilds.v1.CreateGuildResponse
+	(*GetUserGuildsRequest)(nil),         // 14: guilds.v1.GetUserGuildsRequest
+	(*GetMemberByIdResponse)(nil),        // 15: guilds.v1.GetMemberByIdResponse
+	(*GetMemberByIdRequest)(nil),         // 16: guilds.v1.GetMemberByIdRequest
+	(*GetUserGuildsResponse)(nil),        // 17: guilds.v1.GetUserGuildsResponse
+	(*RemoveGuildRequest)(nil),           // 18: guilds.v1.RemoveGuildRequest
+	(*RemoveGuildResponse)(nil),          // 19: guilds.v1.RemoveGuildResponse
+	(*DeleteGuildRequest)(nil),           // 20: guilds.v1.DeleteGuildRequest
+	(*DeleteGuildResponse)(nil),          // 21: guilds.v1.DeleteGuildResponse
+	(*CreateChannelRequest)(nil),         // 22: guilds.v1.CreateChannelRequest
+	(*CreateChannelResponse)(nil),        // 23: guilds.v1.CreateChannelResponse
+	(*GetGuildChannelsRequest)(nil),      // 24: guilds.v1.GetGuildChannelsRequest
+	(*GetGuildChannelsResponse)(nil),     // 25: guilds.v1.GetGuildChannelsResponse
+	(*UpdateChannelRequest)(nil),         // 26: guilds.v1.UpdateChannelRequest
+	(*ChannelAccess)(nil),                // 27: guilds.v1.ChannelAccess
+	(*GetChannelRecipientsRequest)(nil),  // 28: guilds.v1.GetChannelRecipientsRequest
+	(*GetChannelRecipientsResponse)(nil), // 29: guilds.v1.GetChannelRecipientsResponse
+	(*UpdateChannelResponse)(nil),        // 30: guilds.v1.UpdateChannelResponse
+	(*DeleteChannelRequest)(nil),         // 31: guilds.v1.DeleteChannelRequest
+	(*DeleteChannelResponse)(nil),        // 32: guilds.v1.DeleteChannelResponse
+	(*Role)(nil),                         // 33: guilds.v1.Role
+	(*GetGuildRolesRequest)(nil),         // 34: guilds.v1.GetGuildRolesRequest
+	(*GetGuildRolesResponse)(nil),        // 35: guilds.v1.GetGuildRolesResponse
+	(*CreateRoleRequest)(nil),            // 36: guilds.v1.CreateRoleRequest
+	(*CreateRoleResponse)(nil),           // 37: guilds.v1.CreateRoleResponse
+	(*UpdateRoleRequest)(nil),            // 38: guilds.v1.UpdateRoleRequest
+	(*UpdateRoleResponse)(nil),           // 39: guilds.v1.UpdateRoleResponse
+	(*DeleteRoleRequest)(nil),            // 40: guilds.v1.DeleteRoleRequest
+	(*DeleteRoleResponse)(nil),           // 41: guilds.v1.DeleteRoleResponse
+	(*ReorderRolesRequest)(nil),          // 42: guilds.v1.ReorderRolesRequest
+	(*ReorderRolesResponse)(nil),         // 43: guilds.v1.ReorderRolesResponse
+	(*AddRoleMembersRequest)(nil),        // 44: guilds.v1.AddRoleMembersRequest
+	(*AddRoleMembersResponse)(nil),       // 45: guilds.v1.AddRoleMembersResponse
+	(*RemoveRoleMembersRequest)(nil),     // 46: guilds.v1.RemoveRoleMembersRequest
+	(*RemoveRoleMembersResponse)(nil),    // 47: guilds.v1.RemoveRoleMembersResponse
+	(*KickMemberRequest)(nil),            // 48: guilds.v1.KickMemberRequest
+	(*KickMemberResponse)(nil),           // 49: guilds.v1.KickMemberResponse
+	(*UpdateGuildRequest)(nil),           // 50: guilds.v1.UpdateGuildRequest
+	(*UpdateGuildResponse)(nil),          // 51: guilds.v1.UpdateGuildResponse
+	(*v1.UserProfile)(nil),               // 52: common.v1.UserProfile
 }
 var file_guilds_proto_depIdxs = []int32{
-	58, // 0: guilds.v1.GuildMember.user:type_name -> common.v1.UserProfile
+	52, // 0: guilds.v1.GuildMember.user:type_name -> common.v1.UserProfile
 	0,  // 1: guilds.v1.Channel.type:type_name -> guilds.v1.ChannelType
 	2,  // 2: guilds.v1.JoinUserToGuildResponse.member_info:type_name -> guilds.v1.GuildMember
 	2,  // 3: guilds.v1.LeaveUserFromGuildResponse.member_info:type_name -> guilds.v1.GuildMember
@@ -3613,65 +3299,57 @@ var file_guilds_proto_depIdxs = []int32{
 	2,  // 18: guilds.v1.AddRoleMembersResponse.members:type_name -> guilds.v1.GuildMember
 	2,  // 19: guilds.v1.RemoveRoleMembersResponse.members:type_name -> guilds.v1.GuildMember
 	1,  // 20: guilds.v1.UpdateGuildResponse.guild:type_name -> guilds.v1.Guild
-	3,  // 21: guilds.v1.ReserveVoiceSlotResponse.channel:type_name -> guilds.v1.Channel
-	3,  // 22: guilds.v1.GetReservedVoiceChannelsResponse.channels:type_name -> guilds.v1.Channel
-	50, // 23: guilds.v1.GuildService.UpdateGuild:input_type -> guilds.v1.UpdateGuildRequest
-	48, // 24: guilds.v1.GuildService.KickMember:input_type -> guilds.v1.KickMemberRequest
-	34, // 25: guilds.v1.GuildService.GetGuildRoles:input_type -> guilds.v1.GetGuildRolesRequest
-	36, // 26: guilds.v1.GuildService.CreateRole:input_type -> guilds.v1.CreateRoleRequest
-	38, // 27: guilds.v1.GuildService.UpdateRole:input_type -> guilds.v1.UpdateRoleRequest
-	40, // 28: guilds.v1.GuildService.DeleteRole:input_type -> guilds.v1.DeleteRoleRequest
-	42, // 29: guilds.v1.GuildService.ReorderRoles:input_type -> guilds.v1.ReorderRolesRequest
-	44, // 30: guilds.v1.GuildService.AddRoleMembers:input_type -> guilds.v1.AddRoleMembersRequest
-	46, // 31: guilds.v1.GuildService.RemoveRoleMembers:input_type -> guilds.v1.RemoveRoleMembersRequest
-	8,  // 32: guilds.v1.GuildService.GetGuildById:input_type -> guilds.v1.GetGuildByIdRequest
-	14, // 33: guilds.v1.GuildService.GetUserGuilds:input_type -> guilds.v1.GetUserGuildsRequest
-	10, // 34: guilds.v1.GuildService.GetGuildMembers:input_type -> guilds.v1.GetGuildMembersRequest
-	16, // 35: guilds.v1.GuildService.GetMemberById:input_type -> guilds.v1.GetMemberByIdRequest
-	12, // 36: guilds.v1.GuildService.CreateGuild:input_type -> guilds.v1.CreateGuildRequest
-	18, // 37: guilds.v1.GuildService.RemoveGuild:input_type -> guilds.v1.RemoveGuildRequest
-	20, // 38: guilds.v1.GuildService.DeleteGuild:input_type -> guilds.v1.DeleteGuildRequest
-	22, // 39: guilds.v1.GuildService.CreateChannel:input_type -> guilds.v1.CreateChannelRequest
-	24, // 40: guilds.v1.GuildService.GetGuildChannels:input_type -> guilds.v1.GetGuildChannelsRequest
-	26, // 41: guilds.v1.GuildService.UpdateChannel:input_type -> guilds.v1.UpdateChannelRequest
-	28, // 42: guilds.v1.GuildService.GetChannelRecipients:input_type -> guilds.v1.GetChannelRecipientsRequest
-	52, // 43: guilds.v1.GuildService.ReserveVoiceSlot:input_type -> guilds.v1.ReserveVoiceSlotRequest
-	54, // 44: guilds.v1.GuildService.GetReservedVoiceChannels:input_type -> guilds.v1.GetReservedVoiceChannelsRequest
-	53, // 45: guilds.v1.GuildService.SyncVoiceSlots:input_type -> guilds.v1.SyncVoiceSlotsRequest
-	31, // 46: guilds.v1.GuildService.DeleteChannel:input_type -> guilds.v1.DeleteChannelRequest
-	4,  // 47: guilds.v1.GuildService.JoinUserToGuild:input_type -> guilds.v1.JoinUserToGuildRequest
-	6,  // 48: guilds.v1.GuildService.LeaveUserFromGuild:input_type -> guilds.v1.LeaveUserFromGuildRequest
-	51, // 49: guilds.v1.GuildService.UpdateGuild:output_type -> guilds.v1.UpdateGuildResponse
-	49, // 50: guilds.v1.GuildService.KickMember:output_type -> guilds.v1.KickMemberResponse
-	35, // 51: guilds.v1.GuildService.GetGuildRoles:output_type -> guilds.v1.GetGuildRolesResponse
-	37, // 52: guilds.v1.GuildService.CreateRole:output_type -> guilds.v1.CreateRoleResponse
-	39, // 53: guilds.v1.GuildService.UpdateRole:output_type -> guilds.v1.UpdateRoleResponse
-	41, // 54: guilds.v1.GuildService.DeleteRole:output_type -> guilds.v1.DeleteRoleResponse
-	43, // 55: guilds.v1.GuildService.ReorderRoles:output_type -> guilds.v1.ReorderRolesResponse
-	45, // 56: guilds.v1.GuildService.AddRoleMembers:output_type -> guilds.v1.AddRoleMembersResponse
-	47, // 57: guilds.v1.GuildService.RemoveRoleMembers:output_type -> guilds.v1.RemoveRoleMembersResponse
-	9,  // 58: guilds.v1.GuildService.GetGuildById:output_type -> guilds.v1.GetGuildByIdResponse
-	17, // 59: guilds.v1.GuildService.GetUserGuilds:output_type -> guilds.v1.GetUserGuildsResponse
-	11, // 60: guilds.v1.GuildService.GetGuildMembers:output_type -> guilds.v1.GetGuildMembersResponse
-	15, // 61: guilds.v1.GuildService.GetMemberById:output_type -> guilds.v1.GetMemberByIdResponse
-	13, // 62: guilds.v1.GuildService.CreateGuild:output_type -> guilds.v1.CreateGuildResponse
-	19, // 63: guilds.v1.GuildService.RemoveGuild:output_type -> guilds.v1.RemoveGuildResponse
-	21, // 64: guilds.v1.GuildService.DeleteGuild:output_type -> guilds.v1.DeleteGuildResponse
-	23, // 65: guilds.v1.GuildService.CreateChannel:output_type -> guilds.v1.CreateChannelResponse
-	25, // 66: guilds.v1.GuildService.GetGuildChannels:output_type -> guilds.v1.GetGuildChannelsResponse
-	30, // 67: guilds.v1.GuildService.UpdateChannel:output_type -> guilds.v1.UpdateChannelResponse
-	29, // 68: guilds.v1.GuildService.GetChannelRecipients:output_type -> guilds.v1.GetChannelRecipientsResponse
-	55, // 69: guilds.v1.GuildService.ReserveVoiceSlot:output_type -> guilds.v1.ReserveVoiceSlotResponse
-	56, // 70: guilds.v1.GuildService.GetReservedVoiceChannels:output_type -> guilds.v1.GetReservedVoiceChannelsResponse
-	57, // 71: guilds.v1.GuildService.SyncVoiceSlots:output_type -> guilds.v1.SyncVoiceSlotsResponse
-	32, // 72: guilds.v1.GuildService.DeleteChannel:output_type -> guilds.v1.DeleteChannelResponse
-	5,  // 73: guilds.v1.GuildService.JoinUserToGuild:output_type -> guilds.v1.JoinUserToGuildResponse
-	7,  // 74: guilds.v1.GuildService.LeaveUserFromGuild:output_type -> guilds.v1.LeaveUserFromGuildResponse
-	49, // [49:75] is the sub-list for method output_type
-	23, // [23:49] is the sub-list for method input_type
-	23, // [23:23] is the sub-list for extension type_name
-	23, // [23:23] is the sub-list for extension extendee
-	0,  // [0:23] is the sub-list for field type_name
+	50, // 21: guilds.v1.GuildService.UpdateGuild:input_type -> guilds.v1.UpdateGuildRequest
+	48, // 22: guilds.v1.GuildService.KickMember:input_type -> guilds.v1.KickMemberRequest
+	34, // 23: guilds.v1.GuildService.GetGuildRoles:input_type -> guilds.v1.GetGuildRolesRequest
+	36, // 24: guilds.v1.GuildService.CreateRole:input_type -> guilds.v1.CreateRoleRequest
+	38, // 25: guilds.v1.GuildService.UpdateRole:input_type -> guilds.v1.UpdateRoleRequest
+	40, // 26: guilds.v1.GuildService.DeleteRole:input_type -> guilds.v1.DeleteRoleRequest
+	42, // 27: guilds.v1.GuildService.ReorderRoles:input_type -> guilds.v1.ReorderRolesRequest
+	44, // 28: guilds.v1.GuildService.AddRoleMembers:input_type -> guilds.v1.AddRoleMembersRequest
+	46, // 29: guilds.v1.GuildService.RemoveRoleMembers:input_type -> guilds.v1.RemoveRoleMembersRequest
+	8,  // 30: guilds.v1.GuildService.GetGuildById:input_type -> guilds.v1.GetGuildByIdRequest
+	14, // 31: guilds.v1.GuildService.GetUserGuilds:input_type -> guilds.v1.GetUserGuildsRequest
+	10, // 32: guilds.v1.GuildService.GetGuildMembers:input_type -> guilds.v1.GetGuildMembersRequest
+	16, // 33: guilds.v1.GuildService.GetMemberById:input_type -> guilds.v1.GetMemberByIdRequest
+	12, // 34: guilds.v1.GuildService.CreateGuild:input_type -> guilds.v1.CreateGuildRequest
+	18, // 35: guilds.v1.GuildService.RemoveGuild:input_type -> guilds.v1.RemoveGuildRequest
+	20, // 36: guilds.v1.GuildService.DeleteGuild:input_type -> guilds.v1.DeleteGuildRequest
+	22, // 37: guilds.v1.GuildService.CreateChannel:input_type -> guilds.v1.CreateChannelRequest
+	24, // 38: guilds.v1.GuildService.GetGuildChannels:input_type -> guilds.v1.GetGuildChannelsRequest
+	26, // 39: guilds.v1.GuildService.UpdateChannel:input_type -> guilds.v1.UpdateChannelRequest
+	28, // 40: guilds.v1.GuildService.GetChannelRecipients:input_type -> guilds.v1.GetChannelRecipientsRequest
+	31, // 41: guilds.v1.GuildService.DeleteChannel:input_type -> guilds.v1.DeleteChannelRequest
+	4,  // 42: guilds.v1.GuildService.JoinUserToGuild:input_type -> guilds.v1.JoinUserToGuildRequest
+	6,  // 43: guilds.v1.GuildService.LeaveUserFromGuild:input_type -> guilds.v1.LeaveUserFromGuildRequest
+	51, // 44: guilds.v1.GuildService.UpdateGuild:output_type -> guilds.v1.UpdateGuildResponse
+	49, // 45: guilds.v1.GuildService.KickMember:output_type -> guilds.v1.KickMemberResponse
+	35, // 46: guilds.v1.GuildService.GetGuildRoles:output_type -> guilds.v1.GetGuildRolesResponse
+	37, // 47: guilds.v1.GuildService.CreateRole:output_type -> guilds.v1.CreateRoleResponse
+	39, // 48: guilds.v1.GuildService.UpdateRole:output_type -> guilds.v1.UpdateRoleResponse
+	41, // 49: guilds.v1.GuildService.DeleteRole:output_type -> guilds.v1.DeleteRoleResponse
+	43, // 50: guilds.v1.GuildService.ReorderRoles:output_type -> guilds.v1.ReorderRolesResponse
+	45, // 51: guilds.v1.GuildService.AddRoleMembers:output_type -> guilds.v1.AddRoleMembersResponse
+	47, // 52: guilds.v1.GuildService.RemoveRoleMembers:output_type -> guilds.v1.RemoveRoleMembersResponse
+	9,  // 53: guilds.v1.GuildService.GetGuildById:output_type -> guilds.v1.GetGuildByIdResponse
+	17, // 54: guilds.v1.GuildService.GetUserGuilds:output_type -> guilds.v1.GetUserGuildsResponse
+	11, // 55: guilds.v1.GuildService.GetGuildMembers:output_type -> guilds.v1.GetGuildMembersResponse
+	15, // 56: guilds.v1.GuildService.GetMemberById:output_type -> guilds.v1.GetMemberByIdResponse
+	13, // 57: guilds.v1.GuildService.CreateGuild:output_type -> guilds.v1.CreateGuildResponse
+	19, // 58: guilds.v1.GuildService.RemoveGuild:output_type -> guilds.v1.RemoveGuildResponse
+	21, // 59: guilds.v1.GuildService.DeleteGuild:output_type -> guilds.v1.DeleteGuildResponse
+	23, // 60: guilds.v1.GuildService.CreateChannel:output_type -> guilds.v1.CreateChannelResponse
+	25, // 61: guilds.v1.GuildService.GetGuildChannels:output_type -> guilds.v1.GetGuildChannelsResponse
+	30, // 62: guilds.v1.GuildService.UpdateChannel:output_type -> guilds.v1.UpdateChannelResponse
+	29, // 63: guilds.v1.GuildService.GetChannelRecipients:output_type -> guilds.v1.GetChannelRecipientsResponse
+	32, // 64: guilds.v1.GuildService.DeleteChannel:output_type -> guilds.v1.DeleteChannelResponse
+	5,  // 65: guilds.v1.GuildService.JoinUserToGuild:output_type -> guilds.v1.JoinUserToGuildResponse
+	7,  // 66: guilds.v1.GuildService.LeaveUserFromGuild:output_type -> guilds.v1.LeaveUserFromGuildResponse
+	44, // [44:67] is the sub-list for method output_type
+	21, // [21:44] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_guilds_proto_init() }
@@ -3694,7 +3372,7 @@ func file_guilds_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_guilds_proto_rawDesc), len(file_guilds_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   57,
+			NumMessages:   51,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

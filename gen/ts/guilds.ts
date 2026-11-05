@@ -302,33 +302,6 @@ export interface UpdateGuildResponse {
   guild: Guild | undefined;
 }
 
-export interface ReserveVoiceSlotRequest {
-  guildId: string;
-  channelId: string;
-  userId: string;
-}
-
-export interface SyncVoiceSlotsRequest {
-  guildId: string;
-  channelId: string;
-  userIds: string[];
-}
-
-export interface GetReservedVoiceChannelsRequest {
-}
-
-export interface ReserveVoiceSlotResponse {
-  channel: Channel | undefined;
-}
-
-export interface GetReservedVoiceChannelsResponse {
-  channels: Channel[];
-}
-
-export interface SyncVoiceSlotsResponse {
-  userIds: string[];
-}
-
 export const GUILDS_V1_PACKAGE_NAME = "guilds.v1";
 
 export interface GuildServiceClient {
@@ -371,12 +344,6 @@ export interface GuildServiceClient {
   updateChannel(request: UpdateChannelRequest): Observable<UpdateChannelResponse>;
 
   getChannelRecipients(request: GetChannelRecipientsRequest): Observable<GetChannelRecipientsResponse>;
-
-  reserveVoiceSlot(request: ReserveVoiceSlotRequest): Observable<ReserveVoiceSlotResponse>;
-
-  getReservedVoiceChannels(request: GetReservedVoiceChannelsRequest): Observable<GetReservedVoiceChannelsResponse>;
-
-  syncVoiceSlots(request: SyncVoiceSlotsRequest): Observable<SyncVoiceSlotsResponse>;
 
   deleteChannel(request: DeleteChannelRequest): Observable<DeleteChannelResponse>;
 
@@ -466,21 +433,6 @@ export interface GuildServiceController {
     request: GetChannelRecipientsRequest,
   ): Promise<GetChannelRecipientsResponse> | Observable<GetChannelRecipientsResponse> | GetChannelRecipientsResponse;
 
-  reserveVoiceSlot(
-    request: ReserveVoiceSlotRequest,
-  ): Promise<ReserveVoiceSlotResponse> | Observable<ReserveVoiceSlotResponse> | ReserveVoiceSlotResponse;
-
-  getReservedVoiceChannels(
-    request: GetReservedVoiceChannelsRequest,
-  ):
-    | Promise<GetReservedVoiceChannelsResponse>
-    | Observable<GetReservedVoiceChannelsResponse>
-    | GetReservedVoiceChannelsResponse;
-
-  syncVoiceSlots(
-    request: SyncVoiceSlotsRequest,
-  ): Promise<SyncVoiceSlotsResponse> | Observable<SyncVoiceSlotsResponse> | SyncVoiceSlotsResponse;
-
   deleteChannel(
     request: DeleteChannelRequest,
   ): Promise<DeleteChannelResponse> | Observable<DeleteChannelResponse> | DeleteChannelResponse;
@@ -517,9 +469,6 @@ export function GuildServiceControllerMethods() {
       "getGuildChannels",
       "updateChannel",
       "getChannelRecipients",
-      "reserveVoiceSlot",
-      "getReservedVoiceChannels",
-      "syncVoiceSlots",
       "deleteChannel",
       "joinUserToGuild",
       "leaveUserFromGuild",

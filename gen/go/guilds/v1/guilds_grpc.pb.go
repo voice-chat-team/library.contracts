@@ -19,32 +19,29 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GuildService_UpdateGuild_FullMethodName              = "/guilds.v1.GuildService/UpdateGuild"
-	GuildService_KickMember_FullMethodName               = "/guilds.v1.GuildService/KickMember"
-	GuildService_GetGuildRoles_FullMethodName            = "/guilds.v1.GuildService/GetGuildRoles"
-	GuildService_CreateRole_FullMethodName               = "/guilds.v1.GuildService/CreateRole"
-	GuildService_UpdateRole_FullMethodName               = "/guilds.v1.GuildService/UpdateRole"
-	GuildService_DeleteRole_FullMethodName               = "/guilds.v1.GuildService/DeleteRole"
-	GuildService_ReorderRoles_FullMethodName             = "/guilds.v1.GuildService/ReorderRoles"
-	GuildService_AddRoleMembers_FullMethodName           = "/guilds.v1.GuildService/AddRoleMembers"
-	GuildService_RemoveRoleMembers_FullMethodName        = "/guilds.v1.GuildService/RemoveRoleMembers"
-	GuildService_GetGuildById_FullMethodName             = "/guilds.v1.GuildService/GetGuildById"
-	GuildService_GetUserGuilds_FullMethodName            = "/guilds.v1.GuildService/GetUserGuilds"
-	GuildService_GetGuildMembers_FullMethodName          = "/guilds.v1.GuildService/GetGuildMembers"
-	GuildService_GetMemberById_FullMethodName            = "/guilds.v1.GuildService/GetMemberById"
-	GuildService_CreateGuild_FullMethodName              = "/guilds.v1.GuildService/CreateGuild"
-	GuildService_RemoveGuild_FullMethodName              = "/guilds.v1.GuildService/RemoveGuild"
-	GuildService_DeleteGuild_FullMethodName              = "/guilds.v1.GuildService/DeleteGuild"
-	GuildService_CreateChannel_FullMethodName            = "/guilds.v1.GuildService/CreateChannel"
-	GuildService_GetGuildChannels_FullMethodName         = "/guilds.v1.GuildService/GetGuildChannels"
-	GuildService_UpdateChannel_FullMethodName            = "/guilds.v1.GuildService/UpdateChannel"
-	GuildService_GetChannelRecipients_FullMethodName     = "/guilds.v1.GuildService/GetChannelRecipients"
-	GuildService_ReserveVoiceSlot_FullMethodName         = "/guilds.v1.GuildService/ReserveVoiceSlot"
-	GuildService_GetReservedVoiceChannels_FullMethodName = "/guilds.v1.GuildService/GetReservedVoiceChannels"
-	GuildService_SyncVoiceSlots_FullMethodName           = "/guilds.v1.GuildService/SyncVoiceSlots"
-	GuildService_DeleteChannel_FullMethodName            = "/guilds.v1.GuildService/DeleteChannel"
-	GuildService_JoinUserToGuild_FullMethodName          = "/guilds.v1.GuildService/JoinUserToGuild"
-	GuildService_LeaveUserFromGuild_FullMethodName       = "/guilds.v1.GuildService/LeaveUserFromGuild"
+	GuildService_UpdateGuild_FullMethodName          = "/guilds.v1.GuildService/UpdateGuild"
+	GuildService_KickMember_FullMethodName           = "/guilds.v1.GuildService/KickMember"
+	GuildService_GetGuildRoles_FullMethodName        = "/guilds.v1.GuildService/GetGuildRoles"
+	GuildService_CreateRole_FullMethodName           = "/guilds.v1.GuildService/CreateRole"
+	GuildService_UpdateRole_FullMethodName           = "/guilds.v1.GuildService/UpdateRole"
+	GuildService_DeleteRole_FullMethodName           = "/guilds.v1.GuildService/DeleteRole"
+	GuildService_ReorderRoles_FullMethodName         = "/guilds.v1.GuildService/ReorderRoles"
+	GuildService_AddRoleMembers_FullMethodName       = "/guilds.v1.GuildService/AddRoleMembers"
+	GuildService_RemoveRoleMembers_FullMethodName    = "/guilds.v1.GuildService/RemoveRoleMembers"
+	GuildService_GetGuildById_FullMethodName         = "/guilds.v1.GuildService/GetGuildById"
+	GuildService_GetUserGuilds_FullMethodName        = "/guilds.v1.GuildService/GetUserGuilds"
+	GuildService_GetGuildMembers_FullMethodName      = "/guilds.v1.GuildService/GetGuildMembers"
+	GuildService_GetMemberById_FullMethodName        = "/guilds.v1.GuildService/GetMemberById"
+	GuildService_CreateGuild_FullMethodName          = "/guilds.v1.GuildService/CreateGuild"
+	GuildService_RemoveGuild_FullMethodName          = "/guilds.v1.GuildService/RemoveGuild"
+	GuildService_DeleteGuild_FullMethodName          = "/guilds.v1.GuildService/DeleteGuild"
+	GuildService_CreateChannel_FullMethodName        = "/guilds.v1.GuildService/CreateChannel"
+	GuildService_GetGuildChannels_FullMethodName     = "/guilds.v1.GuildService/GetGuildChannels"
+	GuildService_UpdateChannel_FullMethodName        = "/guilds.v1.GuildService/UpdateChannel"
+	GuildService_GetChannelRecipients_FullMethodName = "/guilds.v1.GuildService/GetChannelRecipients"
+	GuildService_DeleteChannel_FullMethodName        = "/guilds.v1.GuildService/DeleteChannel"
+	GuildService_JoinUserToGuild_FullMethodName      = "/guilds.v1.GuildService/JoinUserToGuild"
+	GuildService_LeaveUserFromGuild_FullMethodName   = "/guilds.v1.GuildService/LeaveUserFromGuild"
 )
 
 // GuildServiceClient is the client API for GuildService service.
@@ -71,9 +68,6 @@ type GuildServiceClient interface {
 	GetGuildChannels(ctx context.Context, in *GetGuildChannelsRequest, opts ...grpc.CallOption) (*GetGuildChannelsResponse, error)
 	UpdateChannel(ctx context.Context, in *UpdateChannelRequest, opts ...grpc.CallOption) (*UpdateChannelResponse, error)
 	GetChannelRecipients(ctx context.Context, in *GetChannelRecipientsRequest, opts ...grpc.CallOption) (*GetChannelRecipientsResponse, error)
-	ReserveVoiceSlot(ctx context.Context, in *ReserveVoiceSlotRequest, opts ...grpc.CallOption) (*ReserveVoiceSlotResponse, error)
-	GetReservedVoiceChannels(ctx context.Context, in *GetReservedVoiceChannelsRequest, opts ...grpc.CallOption) (*GetReservedVoiceChannelsResponse, error)
-	SyncVoiceSlots(ctx context.Context, in *SyncVoiceSlotsRequest, opts ...grpc.CallOption) (*SyncVoiceSlotsResponse, error)
 	DeleteChannel(ctx context.Context, in *DeleteChannelRequest, opts ...grpc.CallOption) (*DeleteChannelResponse, error)
 	JoinUserToGuild(ctx context.Context, in *JoinUserToGuildRequest, opts ...grpc.CallOption) (*JoinUserToGuildResponse, error)
 	LeaveUserFromGuild(ctx context.Context, in *LeaveUserFromGuildRequest, opts ...grpc.CallOption) (*LeaveUserFromGuildResponse, error)
@@ -287,36 +281,6 @@ func (c *guildServiceClient) GetChannelRecipients(ctx context.Context, in *GetCh
 	return out, nil
 }
 
-func (c *guildServiceClient) ReserveVoiceSlot(ctx context.Context, in *ReserveVoiceSlotRequest, opts ...grpc.CallOption) (*ReserveVoiceSlotResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ReserveVoiceSlotResponse)
-	err := c.cc.Invoke(ctx, GuildService_ReserveVoiceSlot_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *guildServiceClient) GetReservedVoiceChannels(ctx context.Context, in *GetReservedVoiceChannelsRequest, opts ...grpc.CallOption) (*GetReservedVoiceChannelsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetReservedVoiceChannelsResponse)
-	err := c.cc.Invoke(ctx, GuildService_GetReservedVoiceChannels_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *guildServiceClient) SyncVoiceSlots(ctx context.Context, in *SyncVoiceSlotsRequest, opts ...grpc.CallOption) (*SyncVoiceSlotsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SyncVoiceSlotsResponse)
-	err := c.cc.Invoke(ctx, GuildService_SyncVoiceSlots_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *guildServiceClient) DeleteChannel(ctx context.Context, in *DeleteChannelRequest, opts ...grpc.CallOption) (*DeleteChannelResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DeleteChannelResponse)
@@ -371,9 +335,6 @@ type GuildServiceServer interface {
 	GetGuildChannels(context.Context, *GetGuildChannelsRequest) (*GetGuildChannelsResponse, error)
 	UpdateChannel(context.Context, *UpdateChannelRequest) (*UpdateChannelResponse, error)
 	GetChannelRecipients(context.Context, *GetChannelRecipientsRequest) (*GetChannelRecipientsResponse, error)
-	ReserveVoiceSlot(context.Context, *ReserveVoiceSlotRequest) (*ReserveVoiceSlotResponse, error)
-	GetReservedVoiceChannels(context.Context, *GetReservedVoiceChannelsRequest) (*GetReservedVoiceChannelsResponse, error)
-	SyncVoiceSlots(context.Context, *SyncVoiceSlotsRequest) (*SyncVoiceSlotsResponse, error)
 	DeleteChannel(context.Context, *DeleteChannelRequest) (*DeleteChannelResponse, error)
 	JoinUserToGuild(context.Context, *JoinUserToGuildRequest) (*JoinUserToGuildResponse, error)
 	LeaveUserFromGuild(context.Context, *LeaveUserFromGuildRequest) (*LeaveUserFromGuildResponse, error)
@@ -446,15 +407,6 @@ func (UnimplementedGuildServiceServer) UpdateChannel(context.Context, *UpdateCha
 }
 func (UnimplementedGuildServiceServer) GetChannelRecipients(context.Context, *GetChannelRecipientsRequest) (*GetChannelRecipientsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetChannelRecipients not implemented")
-}
-func (UnimplementedGuildServiceServer) ReserveVoiceSlot(context.Context, *ReserveVoiceSlotRequest) (*ReserveVoiceSlotResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method ReserveVoiceSlot not implemented")
-}
-func (UnimplementedGuildServiceServer) GetReservedVoiceChannels(context.Context, *GetReservedVoiceChannelsRequest) (*GetReservedVoiceChannelsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetReservedVoiceChannels not implemented")
-}
-func (UnimplementedGuildServiceServer) SyncVoiceSlots(context.Context, *SyncVoiceSlotsRequest) (*SyncVoiceSlotsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method SyncVoiceSlots not implemented")
 }
 func (UnimplementedGuildServiceServer) DeleteChannel(context.Context, *DeleteChannelRequest) (*DeleteChannelResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteChannel not implemented")
@@ -846,60 +798,6 @@ func _GuildService_GetChannelRecipients_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _GuildService_ReserveVoiceSlot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReserveVoiceSlotRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GuildServiceServer).ReserveVoiceSlot(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: GuildService_ReserveVoiceSlot_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GuildServiceServer).ReserveVoiceSlot(ctx, req.(*ReserveVoiceSlotRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _GuildService_GetReservedVoiceChannels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetReservedVoiceChannelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GuildServiceServer).GetReservedVoiceChannels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: GuildService_GetReservedVoiceChannels_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GuildServiceServer).GetReservedVoiceChannels(ctx, req.(*GetReservedVoiceChannelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _GuildService_SyncVoiceSlots_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SyncVoiceSlotsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GuildServiceServer).SyncVoiceSlots(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: GuildService_SyncVoiceSlots_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GuildServiceServer).SyncVoiceSlots(ctx, req.(*SyncVoiceSlotsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _GuildService_DeleteChannel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteChannelRequest)
 	if err := dec(in); err != nil {
@@ -1040,18 +938,6 @@ var GuildService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetChannelRecipients",
 			Handler:    _GuildService_GetChannelRecipients_Handler,
-		},
-		{
-			MethodName: "ReserveVoiceSlot",
-			Handler:    _GuildService_ReserveVoiceSlot_Handler,
-		},
-		{
-			MethodName: "GetReservedVoiceChannels",
-			Handler:    _GuildService_GetReservedVoiceChannels_Handler,
-		},
-		{
-			MethodName: "SyncVoiceSlots",
-			Handler:    _GuildService_SyncVoiceSlots_Handler,
 		},
 		{
 			MethodName: "DeleteChannel",

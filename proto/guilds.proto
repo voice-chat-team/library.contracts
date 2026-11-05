@@ -31,9 +31,6 @@ service GuildService {
   rpc GetGuildChannels(GetGuildChannelsRequest) returns (GetGuildChannelsResponse);
   rpc UpdateChannel(UpdateChannelRequest) returns (UpdateChannelResponse);
   rpc GetChannelRecipients(GetChannelRecipientsRequest) returns (GetChannelRecipientsResponse);
-  rpc ReserveVoiceSlot(ReserveVoiceSlotRequest) returns (ReserveVoiceSlotResponse);
-  rpc GetReservedVoiceChannels(GetReservedVoiceChannelsRequest) returns (GetReservedVoiceChannelsResponse);
-  rpc SyncVoiceSlots(SyncVoiceSlotsRequest) returns (SyncVoiceSlotsResponse);
   rpc DeleteChannel(DeleteChannelRequest) returns (DeleteChannelResponse);
 
   rpc JoinUserToGuild(JoinUserToGuildRequest) returns (JoinUserToGuildResponse);
@@ -320,29 +317,4 @@ message UpdateGuildRequest {
 }
 message UpdateGuildResponse {
   Guild guild = 1;
-}
-
-message ReserveVoiceSlotRequest {
- string guild_id = 1;
- string channel_id = 2;
- string user_id = 3;
-}
-message SyncVoiceSlotsRequest {
- string guild_id = 1;
- string channel_id = 2;
- repeated string user_ids = 3;
-}
-
-message GetReservedVoiceChannelsRequest {}
-
-message ReserveVoiceSlotResponse {
-  Channel channel = 1;
-}
-
-message GetReservedVoiceChannelsResponse {
-  repeated Channel channels = 1;
-}
-
-message SyncVoiceSlotsResponse {
-  repeated string user_ids = 1;
 }
