@@ -18,6 +18,7 @@ service GuildService {
   rpc AddRoleMembers(AddRoleMembersRequest) returns (AddRoleMembersResponse);
   rpc RemoveRoleMembers(RemoveRoleMembersRequest) returns (RemoveRoleMembersResponse);
 
+  rpc GetPublicGuilds(GetPublicGuildsRequest) returns (GetPublicGuildsResponse);
   rpc GetGuildById(GetGuildByIdRequest) returns (GetGuildByIdResponse);
   rpc GetUserGuilds(GetUserGuildsRequest) returns (GetUserGuildsResponse);
   rpc GetGuildMembers(GetGuildMembersRequest) returns (GetGuildMembersResponse);
@@ -57,6 +58,17 @@ message GuildMember {
   common.v1.UserProfile user = 8;
   repeated string role_ids = 9;
   int64 permissions = 10;
+}
+
+message GetPublicGuildsRequest {
+  optional string query = 1;
+  int32 offset = 2;
+  int32 limit = 3;
+}
+
+message GetPublicGuildsResponse {
+  repeated Guild guilds = 1;
+  int32 total = 2;
 }
 
 message Channel {

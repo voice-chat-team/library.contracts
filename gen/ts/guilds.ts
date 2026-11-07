@@ -39,6 +39,17 @@ export interface GuildMember {
   permissions: number;
 }
 
+export interface GetPublicGuildsRequest {
+  query?: string | undefined;
+  offset: number;
+  limit: number;
+}
+
+export interface GetPublicGuildsResponse {
+  guilds: Guild[];
+  total: number;
+}
+
 export interface Channel {
   id: string;
   guildId: string;
@@ -323,6 +334,8 @@ export interface GuildServiceClient {
 
   removeRoleMembers(request: RemoveRoleMembersRequest): Observable<RemoveRoleMembersResponse>;
 
+  getPublicGuilds(request: GetPublicGuildsRequest): Observable<GetPublicGuildsResponse>;
+
   getGuildById(request: GetGuildByIdRequest): Observable<GetGuildByIdResponse>;
 
   getUserGuilds(request: GetUserGuildsRequest): Observable<GetUserGuildsResponse>;
@@ -388,6 +401,10 @@ export interface GuildServiceController {
   removeRoleMembers(
     request: RemoveRoleMembersRequest,
   ): Promise<RemoveRoleMembersResponse> | Observable<RemoveRoleMembersResponse> | RemoveRoleMembersResponse;
+
+  getPublicGuilds(
+    request: GetPublicGuildsRequest,
+  ): Promise<GetPublicGuildsResponse> | Observable<GetPublicGuildsResponse> | GetPublicGuildsResponse;
 
   getGuildById(
     request: GetGuildByIdRequest,
@@ -458,6 +475,7 @@ export function GuildServiceControllerMethods() {
       "reorderRoles",
       "addRoleMembers",
       "removeRoleMembers",
+      "getPublicGuilds",
       "getGuildById",
       "getUserGuilds",
       "getGuildMembers",
