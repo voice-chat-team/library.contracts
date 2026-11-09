@@ -4,7 +4,12 @@ package messages.v1;
 
 option go_package = "github.com/voice-chat-team/contracts/gen/go/messages/v1;messages_v1";
 
+import "common.proto";
+
 service MessageService {
+  rpc AddReaction(AddReactionRequest) returns (AddReactionResponse);
+  rpc RemoveReaction(RemoveReactionRequest) returns (RemoveReactionResponse);
+  rpc GetReactionUsers(GetReactionUsersRequest) returns (GetReactionUsersResponse);
   rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
   rpc GetChannelMessages(GetChannelMessagesRequest) returns (GetChannelMessagesResponse);
   rpc UpdateMessage(UpdateMessageRequest) returns (UpdateMessageResponse);
@@ -31,6 +36,8 @@ message Message {
   string created_at = 8;
   string updated_at = 9;
   repeated Attachment attachments = 10;
+  repeated MessageReaction reactions = 11;
+  int32 reactions_version = 12;
 }
 
 message SendMessageRequest {
@@ -86,4 +93,53 @@ message GetAttachmentDownloadUrlRequest {
 message GetAttachmentDownloadUrlResponse {
   string url = 1;
   string expires_at = 2;
+}
+
+message MessageReaction {
+  string emoji = 1;
+  int32 count = 2;
+  bool reacted = 3;
+}
+message AddReactionRequest {
+  string guild_id = 1;
+  string message_id = 2;
+  string emoji = 3;
+  string user_id = 4;
+}
+message RemoveReactionRequest {
+  string guild_id = 1;
+  string message_id = 2;
+  string emoji = 3;
+  string user_id = 4;
+}
+message AddReactionResponse {
+  string message_id = 1;
+  string emoji = 2;
+  int32 count = 3;
+  bool reacted = 4;
+  int32 version = 5;
+}
+message GetReactionUsersRequest {
+  string guild_id = 1;
+  string message_id = 2;
+  string emoji = 3;
+  string user_id = 4;
+  optional string cursor = 5;
+  int32 limit = 6;
+}
+message ReactionUser {
+  string user_id = 1;
+  common.v1.UserProfile user = 2;
+}
+message GetReactionUsersResponse {
+  repeated ReactionUser users = 1;
+  string next_cursor = 2;
+}
+
+message RemoveReactionResponse {
+  string message_id = 1;
+  string emoji = 2;
+  int32 count = 3;
+  bool reacted = 4;
+  int32 version = 5;
 }
