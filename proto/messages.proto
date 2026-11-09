@@ -130,6 +130,8 @@ message GetReactionUsersRequest {
 message ReactionUser {
   string user_id = 1;
   common.v1.UserProfile user = 2;
+  string emoji = 3;
+  string created_at = 4;
 }
 message GetReactionUsersResponse {
   repeated ReactionUser users = 1;

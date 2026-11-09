@@ -122,6 +122,7 @@ export interface AddReactionResponse {
 export interface GetReactionUsersRequest {
   guildId: string;
   messageId: string;
+  /** Empty emoji returns reactions of all types. */
   emoji: string;
   userId: string;
   cursor?: string | undefined;
@@ -131,6 +132,8 @@ export interface GetReactionUsersRequest {
 export interface ReactionUser {
   userId: string;
   user: UserProfile | undefined;
+  emoji: string;
+  createdAt: string;
 }
 
 export interface GetReactionUsersResponse {
