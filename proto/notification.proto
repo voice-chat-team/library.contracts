@@ -10,6 +10,7 @@ service NotificationService {
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
 
   rpc UpdateNotificationPayload(UpdateNotificationPayloadRequest) returns (UpdateNotificationPayloadResponse);
+  rpc ExpireInvitationNotifications(ExpireInvitationNotificationsRequest) returns (ExpireInvitationNotificationsResponse);
 }
 
 enum NotificationType {
@@ -68,4 +69,13 @@ message Notification {
   string created_at = 5;
   bool is_read = 6;
   NotificationType notification_type = 7;
+}
+
+// A batch contains at most 100 invitation notification updates.
+message ExpireInvitationNotificationsRequest {
+  repeated UpdateNotificationPayloadRequest notifications = 1;
+}
+
+message ExpireInvitationNotificationsResponse {
+  bool status = 1;
 }

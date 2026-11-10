@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	NotificationService_SendNotification_FullMethodName          = "/notification.v1.NotificationService/SendNotification"
-	NotificationService_ReadNotification_FullMethodName          = "/notification.v1.NotificationService/ReadNotification"
-	NotificationService_GetNotifications_FullMethodName          = "/notification.v1.NotificationService/GetNotifications"
-	NotificationService_UpdateNotificationPayload_FullMethodName = "/notification.v1.NotificationService/UpdateNotificationPayload"
+	NotificationService_SendNotification_FullMethodName              = "/notification.v1.NotificationService/SendNotification"
+	NotificationService_ReadNotification_FullMethodName              = "/notification.v1.NotificationService/ReadNotification"
+	NotificationService_GetNotifications_FullMethodName              = "/notification.v1.NotificationService/GetNotifications"
+	NotificationService_UpdateNotificationPayload_FullMethodName     = "/notification.v1.NotificationService/UpdateNotificationPayload"
+	NotificationService_ExpireInvitationNotifications_FullMethodName = "/notification.v1.NotificationService/ExpireInvitationNotifications"
 )
 
 // NotificationServiceClient is the client API for NotificationService service.
@@ -33,6 +34,7 @@ type NotificationServiceClient interface {
 	ReadNotification(ctx context.Context, in *ReadNotificationRequest, opts ...grpc.CallOption) (*ReadNotificationResponse, error)
 	GetNotifications(ctx context.Context, in *GetNotificationsRequest, opts ...grpc.CallOption) (*GetNotificationsResponse, error)
 	UpdateNotificationPayload(ctx context.Context, in *UpdateNotificationPayloadRequest, opts ...grpc.CallOption) (*UpdateNotificationPayloadResponse, error)
+	ExpireInvitationNotifications(ctx context.Context, in *ExpireInvitationNotificationsRequest, opts ...grpc.CallOption) (*ExpireInvitationNotificationsResponse, error)
 }
 
 type notificationServiceClient struct {
@@ -83,6 +85,16 @@ func (c *notificationServiceClient) UpdateNotificationPayload(ctx context.Contex
 	return out, nil
 }
 
+func (c *notificationServiceClient) ExpireInvitationNotifications(ctx context.Context, in *ExpireInvitationNotificationsRequest, opts ...grpc.CallOption) (*ExpireInvitationNotificationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ExpireInvitationNotificationsResponse)
+	err := c.cc.Invoke(ctx, NotificationService_ExpireInvitationNotifications_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationServiceServer is the server API for NotificationService service.
 // All implementations must embed UnimplementedNotificationServiceServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type NotificationServiceServer interface {
 	ReadNotification(context.Context, *ReadNotificationRequest) (*ReadNotificationResponse, error)
 	GetNotifications(context.Context, *GetNotificationsRequest) (*GetNotificationsResponse, error)
 	UpdateNotificationPayload(context.Context, *UpdateNotificationPayloadRequest) (*UpdateNotificationPayloadResponse, error)
+	ExpireInvitationNotifications(context.Context, *ExpireInvitationNotificationsRequest) (*ExpireInvitationNotificationsResponse, error)
 	mustEmbedUnimplementedNotificationServiceServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedNotificationServiceServer) GetNotifications(context.Context, 
 }
 func (UnimplementedNotificationServiceServer) UpdateNotificationPayload(context.Context, *UpdateNotificationPayloadRequest) (*UpdateNotificationPayloadResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateNotificationPayload not implemented")
+}
+func (UnimplementedNotificationServiceServer) ExpireInvitationNotifications(context.Context, *ExpireInvitationNotificationsRequest) (*ExpireInvitationNotificationsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ExpireInvitationNotifications not implemented")
 }
 func (UnimplementedNotificationServiceServer) mustEmbedUnimplementedNotificationServiceServer() {}
 func (UnimplementedNotificationServiceServer) testEmbeddedByValue()                             {}
@@ -206,6 +222,24 @@ func _NotificationService_UpdateNotificationPayload_Handler(srv interface{}, ctx
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationService_ExpireInvitationNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExpireInvitationNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).ExpireInvitationNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_ExpireInvitationNotifications_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).ExpireInvitationNotifications(ctx, req.(*ExpireInvitationNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationService_ServiceDesc is the grpc.ServiceDesc for NotificationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,10 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateNotificationPayload",
 			Handler:    _NotificationService_UpdateNotificationPayload_Handler,
+		},
+		{
+			MethodName: "ExpireInvitationNotifications",
+			Handler:    _NotificationService_ExpireInvitationNotifications_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

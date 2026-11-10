@@ -598,6 +598,95 @@ func (x *Notification) GetNotificationType() NotificationType {
 	return NotificationType_GUILD_MEMBER_ADD
 }
 
+// A batch contains at most 100 invitation notification updates.
+type ExpireInvitationNotificationsRequest struct {
+	state         protoimpl.MessageState              `protogen:"open.v1"`
+	Notifications []*UpdateNotificationPayloadRequest `protobuf:"bytes,1,rep,name=notifications,proto3" json:"notifications,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExpireInvitationNotificationsRequest) Reset() {
+	*x = ExpireInvitationNotificationsRequest{}
+	mi := &file_notification_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExpireInvitationNotificationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExpireInvitationNotificationsRequest) ProtoMessage() {}
+
+func (x *ExpireInvitationNotificationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_notification_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExpireInvitationNotificationsRequest.ProtoReflect.Descriptor instead.
+func (*ExpireInvitationNotificationsRequest) Descriptor() ([]byte, []int) {
+	return file_notification_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ExpireInvitationNotificationsRequest) GetNotifications() []*UpdateNotificationPayloadRequest {
+	if x != nil {
+		return x.Notifications
+	}
+	return nil
+}
+
+type ExpireInvitationNotificationsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        bool                   `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExpireInvitationNotificationsResponse) Reset() {
+	*x = ExpireInvitationNotificationsResponse{}
+	mi := &file_notification_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExpireInvitationNotificationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExpireInvitationNotificationsResponse) ProtoMessage() {}
+
+func (x *ExpireInvitationNotificationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_notification_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExpireInvitationNotificationsResponse.ProtoReflect.Descriptor instead.
+func (*ExpireInvitationNotificationsResponse) Descriptor() ([]byte, []int) {
+	return file_notification_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ExpireInvitationNotificationsResponse) GetStatus() bool {
+	if x != nil {
+		return x.Status
+	}
+	return false
+}
+
 var File_notification_proto protoreflect.FileDescriptor
 
 const file_notification_proto_rawDesc = "" +
@@ -638,18 +727,23 @@ const file_notification_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x05 \x01(\tR\tcreatedAt\x12\x17\n" +
 	"\ais_read\x18\x06 \x01(\bR\x06isRead\x12N\n" +
-	"\x11notification_type\x18\a \x01(\x0e2!.notification.v1.NotificationTypeR\x10notificationType*\x89\x01\n" +
+	"\x11notification_type\x18\a \x01(\x0e2!.notification.v1.NotificationTypeR\x10notificationType\"\x7f\n" +
+	"$ExpireInvitationNotificationsRequest\x12W\n" +
+	"\rnotifications\x18\x01 \x03(\v21.notification.v1.UpdateNotificationPayloadRequestR\rnotifications\"?\n" +
+	"%ExpireInvitationNotificationsResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\bR\x06status*\x89\x01\n" +
 	"\x10NotificationType\x12\x14\n" +
 	"\x10GUILD_MEMBER_ADD\x10\x00\x12\x16\n" +
 	"\x12GUILD_MEMBER_LEAVE\x10\x01\x12\x17\n" +
 	"\x13NEW_INVITE_TO_GUILD\x10\x02\x12\x17\n" +
 	"\x13UPDATE_NOTIFICATION\x10\x03\x12\x15\n" +
-	"\x11NEW_GUILD_MESSAGE\x10\x042\xd5\x03\n" +
+	"\x11NEW_GUILD_MESSAGE\x10\x042\xe6\x04\n" +
 	"\x13NotificationService\x12g\n" +
 	"\x10SendNotification\x12(.notification.v1.SendNotificationRequest\x1a).notification.v1.SendNotificationResponse\x12g\n" +
 	"\x10ReadNotification\x12(.notification.v1.ReadNotificationRequest\x1a).notification.v1.ReadNotificationResponse\x12g\n" +
 	"\x10GetNotifications\x12(.notification.v1.GetNotificationsRequest\x1a).notification.v1.GetNotificationsResponse\x12\x82\x01\n" +
-	"\x19UpdateNotificationPayload\x121.notification.v1.UpdateNotificationPayloadRequest\x1a2.notification.v1.UpdateNotificationPayloadResponseBMZKgithub.com/voice-chat-team/contracts/gen/go/notification/v1;notification_v1b\x06proto3"
+	"\x19UpdateNotificationPayload\x121.notification.v1.UpdateNotificationPayloadRequest\x1a2.notification.v1.UpdateNotificationPayloadResponse\x12\x8e\x01\n" +
+	"\x1dExpireInvitationNotifications\x125.notification.v1.ExpireInvitationNotificationsRequest\x1a6.notification.v1.ExpireInvitationNotificationsResponseBMZKgithub.com/voice-chat-team/contracts/gen/go/notification/v1;notification_v1b\x06proto3"
 
 var (
 	file_notification_proto_rawDescOnce sync.Once
@@ -664,38 +758,43 @@ func file_notification_proto_rawDescGZIP() []byte {
 }
 
 var file_notification_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_notification_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_notification_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_notification_proto_goTypes = []any{
-	(NotificationType)(0),                     // 0: notification.v1.NotificationType
-	(*UpdateNotificationPayloadRequest)(nil),  // 1: notification.v1.UpdateNotificationPayloadRequest
-	(*UpdateNotificationPayloadResponse)(nil), // 2: notification.v1.UpdateNotificationPayloadResponse
-	(*SendNotificationRequest)(nil),           // 3: notification.v1.SendNotificationRequest
-	(*SendNotificationResponse)(nil),          // 4: notification.v1.SendNotificationResponse
-	(*ReadNotificationRequest)(nil),           // 5: notification.v1.ReadNotificationRequest
-	(*ReadNotificationResponse)(nil),          // 6: notification.v1.ReadNotificationResponse
-	(*GetNotificationsRequest)(nil),           // 7: notification.v1.GetNotificationsRequest
-	(*GetNotificationsResponse)(nil),          // 8: notification.v1.GetNotificationsResponse
-	(*Notification)(nil),                      // 9: notification.v1.Notification
+	(NotificationType)(0),                         // 0: notification.v1.NotificationType
+	(*UpdateNotificationPayloadRequest)(nil),      // 1: notification.v1.UpdateNotificationPayloadRequest
+	(*UpdateNotificationPayloadResponse)(nil),     // 2: notification.v1.UpdateNotificationPayloadResponse
+	(*SendNotificationRequest)(nil),               // 3: notification.v1.SendNotificationRequest
+	(*SendNotificationResponse)(nil),              // 4: notification.v1.SendNotificationResponse
+	(*ReadNotificationRequest)(nil),               // 5: notification.v1.ReadNotificationRequest
+	(*ReadNotificationResponse)(nil),              // 6: notification.v1.ReadNotificationResponse
+	(*GetNotificationsRequest)(nil),               // 7: notification.v1.GetNotificationsRequest
+	(*GetNotificationsResponse)(nil),              // 8: notification.v1.GetNotificationsResponse
+	(*Notification)(nil),                          // 9: notification.v1.Notification
+	(*ExpireInvitationNotificationsRequest)(nil),  // 10: notification.v1.ExpireInvitationNotificationsRequest
+	(*ExpireInvitationNotificationsResponse)(nil), // 11: notification.v1.ExpireInvitationNotificationsResponse
 }
 var file_notification_proto_depIdxs = []int32{
-	9, // 0: notification.v1.UpdateNotificationPayloadResponse.notification:type_name -> notification.v1.Notification
-	0, // 1: notification.v1.SendNotificationRequest.notification_type:type_name -> notification.v1.NotificationType
-	9, // 2: notification.v1.SendNotificationResponse.notification:type_name -> notification.v1.Notification
-	9, // 3: notification.v1.GetNotificationsResponse.notifications:type_name -> notification.v1.Notification
-	0, // 4: notification.v1.Notification.notification_type:type_name -> notification.v1.NotificationType
-	3, // 5: notification.v1.NotificationService.SendNotification:input_type -> notification.v1.SendNotificationRequest
-	5, // 6: notification.v1.NotificationService.ReadNotification:input_type -> notification.v1.ReadNotificationRequest
-	7, // 7: notification.v1.NotificationService.GetNotifications:input_type -> notification.v1.GetNotificationsRequest
-	1, // 8: notification.v1.NotificationService.UpdateNotificationPayload:input_type -> notification.v1.UpdateNotificationPayloadRequest
-	4, // 9: notification.v1.NotificationService.SendNotification:output_type -> notification.v1.SendNotificationResponse
-	6, // 10: notification.v1.NotificationService.ReadNotification:output_type -> notification.v1.ReadNotificationResponse
-	8, // 11: notification.v1.NotificationService.GetNotifications:output_type -> notification.v1.GetNotificationsResponse
-	2, // 12: notification.v1.NotificationService.UpdateNotificationPayload:output_type -> notification.v1.UpdateNotificationPayloadResponse
-	9, // [9:13] is the sub-list for method output_type
-	5, // [5:9] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	9,  // 0: notification.v1.UpdateNotificationPayloadResponse.notification:type_name -> notification.v1.Notification
+	0,  // 1: notification.v1.SendNotificationRequest.notification_type:type_name -> notification.v1.NotificationType
+	9,  // 2: notification.v1.SendNotificationResponse.notification:type_name -> notification.v1.Notification
+	9,  // 3: notification.v1.GetNotificationsResponse.notifications:type_name -> notification.v1.Notification
+	0,  // 4: notification.v1.Notification.notification_type:type_name -> notification.v1.NotificationType
+	1,  // 5: notification.v1.ExpireInvitationNotificationsRequest.notifications:type_name -> notification.v1.UpdateNotificationPayloadRequest
+	3,  // 6: notification.v1.NotificationService.SendNotification:input_type -> notification.v1.SendNotificationRequest
+	5,  // 7: notification.v1.NotificationService.ReadNotification:input_type -> notification.v1.ReadNotificationRequest
+	7,  // 8: notification.v1.NotificationService.GetNotifications:input_type -> notification.v1.GetNotificationsRequest
+	1,  // 9: notification.v1.NotificationService.UpdateNotificationPayload:input_type -> notification.v1.UpdateNotificationPayloadRequest
+	10, // 10: notification.v1.NotificationService.ExpireInvitationNotifications:input_type -> notification.v1.ExpireInvitationNotificationsRequest
+	4,  // 11: notification.v1.NotificationService.SendNotification:output_type -> notification.v1.SendNotificationResponse
+	6,  // 12: notification.v1.NotificationService.ReadNotification:output_type -> notification.v1.ReadNotificationResponse
+	8,  // 13: notification.v1.NotificationService.GetNotifications:output_type -> notification.v1.GetNotificationsResponse
+	2,  // 14: notification.v1.NotificationService.UpdateNotificationPayload:output_type -> notification.v1.UpdateNotificationPayloadResponse
+	11, // 15: notification.v1.NotificationService.ExpireInvitationNotifications:output_type -> notification.v1.ExpireInvitationNotificationsResponse
+	11, // [11:16] is the sub-list for method output_type
+	6,  // [6:11] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_notification_proto_init() }
@@ -713,7 +812,7 @@ func file_notification_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_notification_proto_rawDesc), len(file_notification_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
