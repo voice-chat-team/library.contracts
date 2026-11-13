@@ -19,6 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	NotificationService_RegisterPushDevice_FullMethodName            = "/notification.v1.NotificationService/RegisterPushDevice"
+	NotificationService_UnregisterPushDevice_FullMethodName          = "/notification.v1.NotificationService/UnregisterPushDevice"
 	NotificationService_SendNotification_FullMethodName              = "/notification.v1.NotificationService/SendNotification"
 	NotificationService_ReadNotification_FullMethodName              = "/notification.v1.NotificationService/ReadNotification"
 	NotificationService_GetNotifications_FullMethodName              = "/notification.v1.NotificationService/GetNotifications"
@@ -30,6 +32,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationServiceClient interface {
+	// user_id is supplied by the authenticated API gateway, never the mobile body.
+	RegisterPushDevice(ctx context.Context, in *RegisterPushDeviceRequest, opts ...grpc.CallOption) (*RegisterPushDeviceResponse, error)
+	UnregisterPushDevice(ctx context.Context, in *UnregisterPushDeviceRequest, opts ...grpc.CallOption) (*UnregisterPushDeviceResponse, error)
 	SendNotification(ctx context.Context, in *SendNotificationRequest, opts ...grpc.CallOption) (*SendNotificationResponse, error)
 	ReadNotification(ctx context.Context, in *ReadNotificationRequest, opts ...grpc.CallOption) (*ReadNotificationResponse, error)
 	GetNotifications(ctx context.Context, in *GetNotificationsRequest, opts ...grpc.CallOption) (*GetNotificationsResponse, error)
@@ -43,6 +48,26 @@ type notificationServiceClient struct {
 
 func NewNotificationServiceClient(cc grpc.ClientConnInterface) NotificationServiceClient {
 	return &notificationServiceClient{cc}
+}
+
+func (c *notificationServiceClient) RegisterPushDevice(ctx context.Context, in *RegisterPushDeviceRequest, opts ...grpc.CallOption) (*RegisterPushDeviceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RegisterPushDeviceResponse)
+	err := c.cc.Invoke(ctx, NotificationService_RegisterPushDevice_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationServiceClient) UnregisterPushDevice(ctx context.Context, in *UnregisterPushDeviceRequest, opts ...grpc.CallOption) (*UnregisterPushDeviceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UnregisterPushDeviceResponse)
+	err := c.cc.Invoke(ctx, NotificationService_UnregisterPushDevice_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *notificationServiceClient) SendNotification(ctx context.Context, in *SendNotificationRequest, opts ...grpc.CallOption) (*SendNotificationResponse, error) {
@@ -99,6 +124,9 @@ func (c *notificationServiceClient) ExpireInvitationNotifications(ctx context.Co
 // All implementations must embed UnimplementedNotificationServiceServer
 // for forward compatibility.
 type NotificationServiceServer interface {
+	// user_id is supplied by the authenticated API gateway, never the mobile body.
+	RegisterPushDevice(context.Context, *RegisterPushDeviceRequest) (*RegisterPushDeviceResponse, error)
+	UnregisterPushDevice(context.Context, *UnregisterPushDeviceRequest) (*UnregisterPushDeviceResponse, error)
 	SendNotification(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error)
 	ReadNotification(context.Context, *ReadNotificationRequest) (*ReadNotificationResponse, error)
 	GetNotifications(context.Context, *GetNotificationsRequest) (*GetNotificationsResponse, error)
@@ -114,6 +142,12 @@ type NotificationServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNotificationServiceServer struct{}
 
+func (UnimplementedNotificationServiceServer) RegisterPushDevice(context.Context, *RegisterPushDeviceRequest) (*RegisterPushDeviceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RegisterPushDevice not implemented")
+}
+func (UnimplementedNotificationServiceServer) UnregisterPushDevice(context.Context, *UnregisterPushDeviceRequest) (*UnregisterPushDeviceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UnregisterPushDevice not implemented")
+}
 func (UnimplementedNotificationServiceServer) SendNotification(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SendNotification not implemented")
 }
@@ -148,6 +182,42 @@ func RegisterNotificationServiceServer(s grpc.ServiceRegistrar, srv Notification
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&NotificationService_ServiceDesc, srv)
+}
+
+func _NotificationService_RegisterPushDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterPushDeviceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).RegisterPushDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_RegisterPushDevice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).RegisterPushDevice(ctx, req.(*RegisterPushDeviceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationService_UnregisterPushDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnregisterPushDeviceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).UnregisterPushDevice(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_UnregisterPushDevice_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).UnregisterPushDevice(ctx, req.(*UnregisterPushDeviceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _NotificationService_SendNotification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -247,6 +317,14 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "notification.v1.NotificationService",
 	HandlerType: (*NotificationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "RegisterPushDevice",
+			Handler:    _NotificationService_RegisterPushDevice_Handler,
+		},
+		{
+			MethodName: "UnregisterPushDevice",
+			Handler:    _NotificationService_UnregisterPushDevice_Handler,
+		},
 		{
 			MethodName: "SendNotification",
 			Handler:    _NotificationService_SendNotification_Handler,

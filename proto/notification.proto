@@ -5,12 +5,35 @@ package notification.v1;
 option go_package = "github.com/voice-chat-team/contracts/gen/go/notification/v1;notification_v1";
 
 service NotificationService {
+  rpc RegisterPushDevice(RegisterPushDeviceRequest) returns (RegisterPushDeviceResponse);
+  rpc UnregisterPushDevice(UnregisterPushDeviceRequest) returns (UnregisterPushDeviceResponse);
   rpc SendNotification(SendNotificationRequest) returns (SendNotificationResponse);
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse);
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
 
   rpc UpdateNotificationPayload(UpdateNotificationPayloadRequest) returns (UpdateNotificationPayloadResponse);
   rpc ExpireInvitationNotifications(ExpireInvitationNotificationsRequest) returns (ExpireInvitationNotificationsResponse);
+}
+
+message RegisterPushDeviceRequest {
+  string user_id = 1;
+  string device_id = 2;
+  string token = 3;
+  string platform = 4; // "android" or "ios"
+}
+
+message RegisterPushDeviceResponse {
+  bool status = 1;
+}
+
+message UnregisterPushDeviceRequest {
+  string user_id = 1;
+  string device_id = 2;
+  string token = 3;
+}
+
+message UnregisterPushDeviceResponse {
+  bool status = 1;
 }
 
 enum NotificationType {
