@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	NotificationService_EnqueueMessagePush_FullMethodName            = "/notification.v1.NotificationService/EnqueueMessagePush"
 	NotificationService_RegisterPushDevice_FullMethodName            = "/notification.v1.NotificationService/RegisterPushDevice"
 	NotificationService_UnregisterPushDevice_FullMethodName          = "/notification.v1.NotificationService/UnregisterPushDevice"
 	NotificationService_SendNotification_FullMethodName              = "/notification.v1.NotificationService/SendNotification"
@@ -32,7 +33,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationServiceClient interface {
-	// user_id is supplied by the authenticated API gateway, never the mobile body.
+	// Persists the job before acknowledging. Repeated message_id is a no-op.
+	EnqueueMessagePush(ctx context.Context, in *EnqueueMessagePushRequest, opts ...grpc.CallOption) (*EnqueueMessagePushResponse, error)
 	RegisterPushDevice(ctx context.Context, in *RegisterPushDeviceRequest, opts ...grpc.CallOption) (*RegisterPushDeviceResponse, error)
 	UnregisterPushDevice(ctx context.Context, in *UnregisterPushDeviceRequest, opts ...grpc.CallOption) (*UnregisterPushDeviceResponse, error)
 	SendNotification(ctx context.Context, in *SendNotificationRequest, opts ...grpc.CallOption) (*SendNotificationResponse, error)
@@ -48,6 +50,16 @@ type notificationServiceClient struct {
 
 func NewNotificationServiceClient(cc grpc.ClientConnInterface) NotificationServiceClient {
 	return &notificationServiceClient{cc}
+}
+
+func (c *notificationServiceClient) EnqueueMessagePush(ctx context.Context, in *EnqueueMessagePushRequest, opts ...grpc.CallOption) (*EnqueueMessagePushResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EnqueueMessagePushResponse)
+	err := c.cc.Invoke(ctx, NotificationService_EnqueueMessagePush_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *notificationServiceClient) RegisterPushDevice(ctx context.Context, in *RegisterPushDeviceRequest, opts ...grpc.CallOption) (*RegisterPushDeviceResponse, error) {
@@ -124,7 +136,8 @@ func (c *notificationServiceClient) ExpireInvitationNotifications(ctx context.Co
 // All implementations must embed UnimplementedNotificationServiceServer
 // for forward compatibility.
 type NotificationServiceServer interface {
-	// user_id is supplied by the authenticated API gateway, never the mobile body.
+	// Persists the job before acknowledging. Repeated message_id is a no-op.
+	EnqueueMessagePush(context.Context, *EnqueueMessagePushRequest) (*EnqueueMessagePushResponse, error)
 	RegisterPushDevice(context.Context, *RegisterPushDeviceRequest) (*RegisterPushDeviceResponse, error)
 	UnregisterPushDevice(context.Context, *UnregisterPushDeviceRequest) (*UnregisterPushDeviceResponse, error)
 	SendNotification(context.Context, *SendNotificationRequest) (*SendNotificationResponse, error)
@@ -142,6 +155,9 @@ type NotificationServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedNotificationServiceServer struct{}
 
+func (UnimplementedNotificationServiceServer) EnqueueMessagePush(context.Context, *EnqueueMessagePushRequest) (*EnqueueMessagePushResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method EnqueueMessagePush not implemented")
+}
 func (UnimplementedNotificationServiceServer) RegisterPushDevice(context.Context, *RegisterPushDeviceRequest) (*RegisterPushDeviceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RegisterPushDevice not implemented")
 }
@@ -182,6 +198,24 @@ func RegisterNotificationServiceServer(s grpc.ServiceRegistrar, srv Notification
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&NotificationService_ServiceDesc, srv)
+}
+
+func _NotificationService_EnqueueMessagePush_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EnqueueMessagePushRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).EnqueueMessagePush(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_EnqueueMessagePush_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).EnqueueMessagePush(ctx, req.(*EnqueueMessagePushRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _NotificationService_RegisterPushDevice_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -317,6 +351,10 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "notification.v1.NotificationService",
 	HandlerType: (*NotificationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "EnqueueMessagePush",
+			Handler:    _NotificationService_EnqueueMessagePush_Handler,
+		},
 		{
 			MethodName: "RegisterPushDevice",
 			Handler:    _NotificationService_RegisterPushDevice_Handler,

@@ -19,10 +19,22 @@ export enum NotificationType {
   UNRECOGNIZED = -1,
 }
 
-/**
- * device_id is a random UUID persisted per mobile app installation.
- * Registration replaces the installation's token and current account atomically.
- */
+export interface EnqueueMessagePushRequest {
+  messageId: string;
+  guildId: string;
+  channelId: string;
+  senderId: string;
+  senderName: string;
+  channelName: string;
+  body: string;
+  /** ISO 8601, original message creation time */
+  createdAt: string;
+}
+
+export interface EnqueueMessagePushResponse {
+  status: boolean;
+}
+
 export interface RegisterPushDeviceRequest {
   userId: string;
   deviceId: string;
@@ -35,7 +47,6 @@ export interface RegisterPushDeviceResponse {
   status: boolean;
 }
 
-/** Include the current token to avoid deleting a newer registration on logout. */
 export interface UnregisterPushDeviceRequest {
   userId: string;
   deviceId: string;
@@ -106,7 +117,9 @@ export interface ExpireInvitationNotificationsResponse {
 export const NOTIFICATION_V1_PACKAGE_NAME = "notification.v1";
 
 export interface NotificationServiceClient {
-  /** user_id is supplied by the authenticated API gateway, never the mobile body. */
+  /** Persists the job before acknowledging. Repeated message_id is a no-op. */
+
+  enqueueMessagePush(request: EnqueueMessagePushRequest): Observable<EnqueueMessagePushResponse>;
 
   registerPushDevice(request: RegisterPushDeviceRequest): Observable<RegisterPushDeviceResponse>;
 
@@ -126,7 +139,11 @@ export interface NotificationServiceClient {
 }
 
 export interface NotificationServiceController {
-  /** user_id is supplied by the authenticated API gateway, never the mobile body. */
+  /** Persists the job before acknowledging. Repeated message_id is a no-op. */
+
+  enqueueMessagePush(
+    request: EnqueueMessagePushRequest,
+  ): Promise<EnqueueMessagePushResponse> | Observable<EnqueueMessagePushResponse> | EnqueueMessagePushResponse;
 
   registerPushDevice(
     request: RegisterPushDeviceRequest,
@@ -166,6 +183,7 @@ export interface NotificationServiceController {
 export function NotificationServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = [
+      "enqueueMessagePush",
       "registerPushDevice",
       "unregisterPushDevice",
       "sendNotification",
